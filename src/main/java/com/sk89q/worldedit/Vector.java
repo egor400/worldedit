@@ -19,6 +19,8 @@
 
 package com.sk89q.worldedit;
 
+import com.sk89q.worldedit.math.Vector4D;
+
 /**
  *
  * @author sk89q
@@ -723,6 +725,24 @@ public class Vector {
      */
     public Vector2D toVector2D() {
         return new Vector2D(x, z);
+    }
+
+    /**
+     * Creates a 3D vector by adding a zero W component to this vector.
+     *
+     * @return Vector
+     */
+    public Vector4D toVector4D() {
+        return new Vector4D(x, y, z, 0);
+    }
+
+    /**
+     * Creates a 4D vector by adding the specified W component to this vector.
+     *
+     * @return Vector
+     */
+    public Vector4D toVector4D(double w) {
+        return new Vector4D(x, y, z, w);
     }
 
     /**
