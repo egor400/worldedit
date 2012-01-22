@@ -61,7 +61,7 @@ import java.io.InputStream;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.InflaterInputStream;
 
-import com.sk89q.worldedit.Vector2D;
+import com.sk89q.worldedit.math.Vector2D;
 
 /**
  * Reader for a MCRegion file. This reader works on input streams, meaning

@@ -22,6 +22,9 @@ package com.sk89q.worldedit;
 import com.sk89q.jnbt.*;
 import com.sk89q.worldedit.blocks.*;
 import com.sk89q.worldedit.data.*;
+import com.sk89q.worldedit.math.BlockVector;
+import com.sk89q.worldedit.math.Vector;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;

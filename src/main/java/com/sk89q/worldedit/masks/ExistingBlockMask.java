@@ -20,8 +20,8 @@
 package com.sk89q.worldedit.masks;
 
 import com.sk89q.worldedit.EditSession;
-import com.sk89q.worldedit.Vector;
 import com.sk89q.worldedit.blocks.BlockID;
+import com.sk89q.worldedit.math.Vector;
 
 public class ExistingBlockMask implements Mask {
     public boolean matches(EditSession editSession, Vector pos) {

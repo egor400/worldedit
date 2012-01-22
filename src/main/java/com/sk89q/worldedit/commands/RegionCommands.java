@@ -32,6 +32,7 @@ import com.sk89q.worldedit.expression.ExpressionException;
 import com.sk89q.worldedit.filtering.GaussianKernel;
 import com.sk89q.worldedit.filtering.HeightMapFilter;
 import com.sk89q.worldedit.masks.Mask;
+import com.sk89q.worldedit.math.Vector;
 import com.sk89q.worldedit.patterns.*;
 import com.sk89q.worldedit.regions.Region;
 import com.sk89q.worldedit.regions.RegionOperationException;

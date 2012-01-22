@@ -31,6 +31,8 @@ import static com.sk89q.minecraft.util.commands.Logging.LogMode.*;
 import com.sk89q.worldedit.*;
 import com.sk89q.worldedit.data.LegacyChunkStore;
 import com.sk89q.worldedit.data.McRegionChunkStore;
+import com.sk89q.worldedit.math.Vector;
+import com.sk89q.worldedit.math.Vector2D;
 
 /**
  * Chunk tools.

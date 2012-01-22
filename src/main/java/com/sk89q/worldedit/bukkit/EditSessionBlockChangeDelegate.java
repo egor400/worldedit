@@ -21,9 +21,9 @@ package com.sk89q.worldedit.bukkit;
 
 import org.bukkit.BlockChangeDelegate;
 import com.sk89q.worldedit.EditSession;
-import com.sk89q.worldedit.Vector;
 import com.sk89q.worldedit.MaxChangedBlocksException;
 import com.sk89q.worldedit.blocks.BaseBlock;
+import com.sk89q.worldedit.math.Vector;
 
 /**
  * Proxy class to catch calls to set blocks.

@@ -1,6 +1,10 @@
 package com.sk89q.worldedit;
 
 import org.junit.*;
+
+import com.sk89q.worldedit.math.Vector;
+import com.sk89q.worldedit.math.Vector2D;
+
 import static org.junit.Assert.*;
 
 public class VectorTest {

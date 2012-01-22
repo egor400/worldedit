@@ -22,6 +22,7 @@ package com.sk89q.worldedit.tools;
 import com.sk89q.worldedit.*;
 import com.sk89q.worldedit.blocks.BaseBlock;
 import com.sk89q.worldedit.blocks.BlockID;
+import com.sk89q.worldedit.math.WorldVectorFace;
 
 /**
  * A tool that can place (or remove) blocks at a distance.

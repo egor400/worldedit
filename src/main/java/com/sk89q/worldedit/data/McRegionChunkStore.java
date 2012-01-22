@@ -26,7 +26,7 @@ import com.sk89q.jnbt.CompoundTag;
 import com.sk89q.jnbt.NBTInputStream;
 import com.sk89q.jnbt.Tag;
 import com.sk89q.worldedit.LocalWorld;
-import com.sk89q.worldedit.Vector2D;
+import com.sk89q.worldedit.math.Vector2D;
 
 public abstract class McRegionChunkStore extends ChunkStore {
     protected String curFilename = null;

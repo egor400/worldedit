@@ -28,6 +28,8 @@ import com.sk89q.minecraft.util.commands.CommandContext;
 import com.sk89q.minecraft.util.commands.CommandPermissions;
 import com.sk89q.worldedit.*;
 import com.sk89q.worldedit.data.ChunkStore;
+import com.sk89q.worldedit.math.Vector;
+import com.sk89q.worldedit.math.Vector2D;
 import com.sk89q.worldedit.regions.CuboidRegionSelector;
 import com.sk89q.worldedit.regions.EllipsoidRegionSelector;
 import com.sk89q.worldedit.regions.ExtendingCuboidRegionSelector;

@@ -22,7 +22,7 @@ package com.sk89q.worldedit.masks;
 import java.util.HashSet;
 import java.util.Set;
 import com.sk89q.worldedit.EditSession;
-import com.sk89q.worldedit.Vector;
+import com.sk89q.worldedit.math.Vector;
 
 /**
  * A filter that matches blocks based on block types.

@@ -2,7 +2,6 @@ package com.sk89q.worldedit.math;
 
 import org.junit.*;
 
-import com.sk89q.worldedit.Vector;
 
 import static org.junit.Assert.*;
 

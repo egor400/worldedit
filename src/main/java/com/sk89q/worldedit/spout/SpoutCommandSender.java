@@ -23,9 +23,10 @@ import com.sk89q.worldedit.LocalPlayer;
 import com.sk89q.worldedit.LocalWorld;
 import com.sk89q.worldedit.PlayerNeededException;
 import com.sk89q.worldedit.ServerInterface;
-import com.sk89q.worldedit.Vector;
-import com.sk89q.worldedit.WorldVector;
 import com.sk89q.worldedit.bags.BlockBag;
+import com.sk89q.worldedit.math.Vector;
+import com.sk89q.worldedit.math.WorldVector;
+
 import org.spout.api.ChatColor;
 import org.spout.api.command.CommandSource;
 import org.spout.api.player.Player;

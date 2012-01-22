@@ -18,8 +18,8 @@
  */
 package com.sk89q.worldedit.cui;
 
-import com.sk89q.worldedit.Vector;
-import com.sk89q.worldedit.Vector2D;
+import com.sk89q.worldedit.math.Vector;
+import com.sk89q.worldedit.math.Vector2D;
 
 public class SelectionCylinderEvent implements CUIEvent {
 

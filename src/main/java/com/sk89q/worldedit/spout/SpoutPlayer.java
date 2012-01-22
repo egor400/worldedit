@@ -23,10 +23,11 @@ import com.sk89q.util.StringUtil;
 import com.sk89q.worldedit.LocalPlayer;
 import com.sk89q.worldedit.LocalWorld;
 import com.sk89q.worldedit.ServerInterface;
-import com.sk89q.worldedit.Vector;
-import com.sk89q.worldedit.WorldVector;
 import com.sk89q.worldedit.bags.BlockBag;
 import com.sk89q.worldedit.cui.CUIEvent;
+import com.sk89q.worldedit.math.Vector;
+import com.sk89q.worldedit.math.WorldVector;
+
 import org.spout.api.geo.discrete.Point;
 import org.spout.api.geo.discrete.atomic.Transform;
 import org.spout.api.inventory.ItemStack;

@@ -21,8 +21,8 @@
 
 package com.sk89q.worldedit.spout.selections;
 
-import com.sk89q.worldedit.BlockVector2D;
 import com.sk89q.worldedit.LocalWorld;
+import com.sk89q.worldedit.math.BlockVector2D;
 import com.sk89q.worldedit.regions.Polygonal2DRegion;
 import com.sk89q.worldedit.regions.Polygonal2DRegionSelector;
 import com.sk89q.worldedit.regions.RegionSelector;

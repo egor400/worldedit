@@ -25,6 +25,7 @@ import com.sk89q.minecraft.util.commands.CommandPermissions;
 import com.sk89q.minecraft.util.commands.Logging;
 import static com.sk89q.minecraft.util.commands.Logging.LogMode.*;
 import com.sk89q.worldedit.*;
+import com.sk89q.worldedit.math.WorldVector;
 
 /**
  * Navigation commands.

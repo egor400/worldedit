@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.ArrayList;
 import com.sk89q.worldedit.*;
 import com.sk89q.worldedit.blocks.BaseBlock;
+import com.sk89q.worldedit.math.Vector;
 
 /**
  * Pattern proportionally fills.

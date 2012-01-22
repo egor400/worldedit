@@ -23,6 +23,9 @@ import java.util.HashSet;
 import java.util.Set;
 import com.sk89q.worldedit.*;
 import com.sk89q.worldedit.blocks.BlockID;
+import com.sk89q.worldedit.math.BlockVector;
+import com.sk89q.worldedit.math.Vector;
+import com.sk89q.worldedit.math.WorldVector;
 import com.sk89q.worldedit.patterns.Pattern;
 
 /**

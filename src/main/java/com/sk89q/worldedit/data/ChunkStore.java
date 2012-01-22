@@ -22,6 +22,9 @@ package com.sk89q.worldedit.data;
 import java.io.IOException;
 import com.sk89q.jnbt.*;
 import com.sk89q.worldedit.*;
+import com.sk89q.worldedit.math.BlockVector2D;
+import com.sk89q.worldedit.math.Vector;
+import com.sk89q.worldedit.math.Vector2D;
 
 /**
  * Represents chunk storage mechanisms.

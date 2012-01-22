@@ -48,6 +48,8 @@ import com.sk89q.worldedit.regions.RegionSelector;
 import com.sk89q.worldedit.scripting.*;
 import com.sk89q.worldedit.tools.*;
 import com.sk89q.worldedit.masks.*;
+import com.sk89q.worldedit.math.Vector;
+import com.sk89q.worldedit.math.WorldVector;
 import com.sk89q.worldedit.patterns.*;
 
 /**

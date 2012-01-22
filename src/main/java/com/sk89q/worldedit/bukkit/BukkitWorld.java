@@ -48,13 +48,13 @@ import org.bukkit.Material;
 import org.bukkit.TreeType;
 import org.bukkit.World;
 
-import com.sk89q.worldedit.BlockVector2D;
 import com.sk89q.worldedit.EditSession;
 import com.sk89q.worldedit.LocalWorld;
-import com.sk89q.worldedit.Vector;
-import com.sk89q.worldedit.Vector2D;
 import com.sk89q.worldedit.blocks.*;
 import com.sk89q.worldedit.EntityType;
+import com.sk89q.worldedit.math.BlockVector2D;
+import com.sk89q.worldedit.math.Vector;
+import com.sk89q.worldedit.math.Vector2D;
 import com.sk89q.worldedit.regions.Region;
 
 public class BukkitWorld extends LocalWorld {

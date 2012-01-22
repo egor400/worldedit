@@ -23,7 +23,8 @@ import com.sk89q.util.StringUtil;
 import com.sk89q.worldedit.LocalPlayer;
 import com.sk89q.worldedit.LocalWorld;
 import com.sk89q.worldedit.WorldEdit;
-import com.sk89q.worldedit.WorldVector;
+import com.sk89q.worldedit.math.WorldVector;
+
 import org.spout.api.Spout;
 import org.spout.api.event.EventHandler;
 import org.spout.api.event.Listener;

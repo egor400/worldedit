@@ -17,51 +17,44 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-package com.sk89q.worldedit;
+package com.sk89q.worldedit.math;
 
-/**
- * Extension of Vector2D that supports being compared as ints (for accuracy).
- *
- * @author sk89q
- */
-public class BlockVector2D extends Vector2D {
+import com.sk89q.worldedit.LocalWorld;
+
+public class WorldVector2D extends Vector2D {
+
     /**
-     * Construct the Vector object.
-     *
-     * @param pt
+     * Represents the world.
      */
-    public BlockVector2D(Vector2D pt) {
+    protected LocalWorld world;
+
+    public WorldVector2D(LocalWorld world) {
+        super();
+        this.world = world;
+    }
+
+    public WorldVector2D(LocalWorld world, double x, double z) {
+        super(x, z);
+        this.world = world;
+    }
+
+    public WorldVector2D(LocalWorld world, float x, float z) {
+        super(x, z);
+        this.world = world;
+    }
+
+    public WorldVector2D(LocalWorld world, int x, int z) {
+        super(x, z);
+        this.world = world;
+    }
+
+    public WorldVector2D(LocalWorld world, Vector2D pt) {
         super(pt);
+        this.world = world;
     }
 
-    /**
-     * Construct the Vector object.
-     *
-     * @param x
-     * @param z
-     */
-    public BlockVector2D(int x, int z) {
-        super(x, z);
-    }
-
-    /**
-     * Construct the Vector object.
-     *
-     * @param x
-     * @param z
-     */
-    public BlockVector2D(float x, float z) {
-        super(x, z);
-    }
-
-    /**
-     * Construct the Vector object.
-     *
-     * @param x
-     * @param z
-     */
-    public BlockVector2D(double x, double z) {
-        super(x, z);
+    public LocalWorld getWorld() {
+        return world;
     }
 
     /**
@@ -72,11 +65,12 @@ public class BlockVector2D extends Vector2D {
      */
     @Override
     public boolean equals(Object obj) {
-        if (!(obj instanceof Vector2D)) {
+        if (!(obj instanceof WorldVector2D)) {
             return false;
         }
-        Vector2D other = (Vector2D) obj;
-        return (int) other.x == (int) this.x && (int) other.z == (int) this.z;
+        WorldVector2D other = (WorldVector2D) obj;
+        return other.world.equals(world) && other.x == this.x
+                && other.z == this.z;
 
     }
 
@@ -87,12 +81,8 @@ public class BlockVector2D extends Vector2D {
      */
     @Override
     public int hashCode() {
-        return (Integer.valueOf((int) x).hashCode() >> 13) ^
-                Integer.valueOf((int) z).hashCode();
-    }
-
-    @Override
-    public BlockVector2D toBlockVector2D() {
-        return this;
+        return (world.hashCode() >> 7) ^
+                ((int) (Double.doubleToLongBits(x) ^ (Double.doubleToLongBits(x) >>> 32)) >> 13) ^
+                (int) (Double.doubleToLongBits(z) ^ (Double.doubleToLongBits(z) >>> 32));
     }
 }

@@ -24,8 +24,8 @@ import java.util.List;
 
 import com.sk89q.worldedit.LocalWorld;
 import org.bukkit.World;
-import com.sk89q.worldedit.BlockVector2D;
 import com.sk89q.worldedit.bukkit.BukkitUtil;
+import com.sk89q.worldedit.math.BlockVector2D;
 import com.sk89q.worldedit.regions.*;
 
 public class Polygonal2DSelection extends RegionSelection {

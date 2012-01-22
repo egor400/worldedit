@@ -23,6 +23,7 @@ import com.sk89q.worldedit.*;
 import com.sk89q.worldedit.bags.BlockBag;
 import com.sk89q.worldedit.blocks.BaseBlock;
 import com.sk89q.worldedit.blocks.BlockType;
+import com.sk89q.worldedit.math.WorldVector;
 
 /**
  * A mode that replaces one block.

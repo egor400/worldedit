@@ -26,6 +26,8 @@ import com.sk89q.util.StringUtil;
 import com.sk89q.worldedit.*;
 import com.sk89q.worldedit.bags.BlockBag;
 import com.sk89q.worldedit.cui.CUIEvent;
+import com.sk89q.worldedit.math.Vector;
+import com.sk89q.worldedit.math.WorldVector;
 
 public class BukkitPlayer extends LocalPlayer {
     private Player player;

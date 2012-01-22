@@ -19,6 +19,8 @@
 
 package com.sk89q.worldedit;
 
+import com.sk89q.worldedit.math.Vector;
+
 /**
  * Direction.
  */

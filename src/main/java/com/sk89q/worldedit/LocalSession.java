@@ -38,6 +38,7 @@ import com.sk89q.worldedit.cui.CUIRegion;
 import com.sk89q.worldedit.cui.CUIEvent;
 import com.sk89q.worldedit.cui.SelectionShapeEvent;
 import com.sk89q.worldedit.masks.Mask;
+import com.sk89q.worldedit.math.Vector;
 import com.sk89q.worldedit.regions.CuboidRegionSelector;
 import com.sk89q.worldedit.regions.Region;
 import com.sk89q.worldedit.regions.RegionSelector;

@@ -23,13 +23,13 @@
 
 package com.sk89q.worldedit.util;
 
-import com.sk89q.worldedit.BlockWorldVector;
 import com.sk89q.worldedit.LocalPlayer;
 import com.sk89q.worldedit.LocalWorld;
-import com.sk89q.worldedit.Vector;
-import com.sk89q.worldedit.WorldVectorFace;
 import com.sk89q.worldedit.blocks.BlockID;
 import com.sk89q.worldedit.blocks.BlockType;
+import com.sk89q.worldedit.math.BlockWorldVector;
+import com.sk89q.worldedit.math.Vector;
+import com.sk89q.worldedit.math.WorldVectorFace;
 
 /**
  * This class uses an inefficient method to figure out what block a player

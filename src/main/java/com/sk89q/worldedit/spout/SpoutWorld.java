@@ -19,13 +19,13 @@
 
 package com.sk89q.worldedit.spout;
 
-import com.sk89q.worldedit.BlockVector2D;
 import com.sk89q.worldedit.EditSession;
 import com.sk89q.worldedit.EntityType;
 import com.sk89q.worldedit.LocalWorld;
-import com.sk89q.worldedit.Vector;
 import com.sk89q.worldedit.blocks.BaseBlock;
 import com.sk89q.worldedit.blocks.BaseItemStack;
+import com.sk89q.worldedit.math.BlockVector2D;
+import com.sk89q.worldedit.math.Vector;
 import com.sk89q.worldedit.regions.Region;
 
 import org.spout.api.geo.World;

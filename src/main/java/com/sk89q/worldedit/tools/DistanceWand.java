@@ -20,6 +20,7 @@
 package com.sk89q.worldedit.tools;
 
 import com.sk89q.worldedit.*;
+import com.sk89q.worldedit.math.WorldVector;
 import com.sk89q.worldedit.regions.RegionSelector;
 
 /**

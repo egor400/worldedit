@@ -19,7 +19,6 @@
 
 package com.sk89q.worldedit.math;
 
-import com.sk89q.worldedit.Vector;
 
 /**
  *

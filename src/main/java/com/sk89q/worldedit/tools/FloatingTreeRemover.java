@@ -25,6 +25,8 @@ import java.util.Set;
 import com.sk89q.worldedit.*;
 import com.sk89q.worldedit.blocks.BaseBlock;
 import com.sk89q.worldedit.blocks.BlockID;
+import com.sk89q.worldedit.math.Vector;
+import com.sk89q.worldedit.math.WorldVector;
 
 /**
  * A pickaxe mode that removes floating treetops (logs and leaves not connected

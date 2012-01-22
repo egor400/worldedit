@@ -21,12 +21,12 @@ package com.sk89q.worldedit.bukkit;
 
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import com.sk89q.worldedit.Vector;
 import com.sk89q.worldedit.bags.*;
 import com.sk89q.worldedit.blocks.BaseItem;
 import com.sk89q.worldedit.blocks.BaseItemStack;
 import com.sk89q.worldedit.blocks.BlockID;
 import com.sk89q.worldedit.blocks.ItemType;
+import com.sk89q.worldedit.math.Vector;
 
 public class BukkitPlayerBlockBag extends BlockBag {
     /**

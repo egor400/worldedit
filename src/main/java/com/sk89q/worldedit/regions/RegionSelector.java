@@ -20,11 +20,11 @@
 package com.sk89q.worldedit.regions;
 
 import java.util.List;
-import com.sk89q.worldedit.BlockVector;
 import com.sk89q.worldedit.IncompleteRegionException;
 import com.sk89q.worldedit.LocalPlayer;
 import com.sk89q.worldedit.LocalSession;
-import com.sk89q.worldedit.Vector;
+import com.sk89q.worldedit.math.BlockVector;
+import com.sk89q.worldedit.math.Vector;
 
 /**
  * Region selection factory.

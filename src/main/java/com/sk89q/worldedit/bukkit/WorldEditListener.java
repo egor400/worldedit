@@ -36,7 +36,8 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import com.sk89q.worldedit.LocalPlayer;
 import com.sk89q.worldedit.LocalWorld;
 import com.sk89q.worldedit.WorldEdit;
-import com.sk89q.worldedit.WorldVector;
+import com.sk89q.worldedit.math.WorldVector;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

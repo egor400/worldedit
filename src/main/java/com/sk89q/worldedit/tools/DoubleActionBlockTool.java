@@ -23,7 +23,7 @@ import com.sk89q.worldedit.LocalConfiguration;
 import com.sk89q.worldedit.LocalPlayer;
 import com.sk89q.worldedit.LocalSession;
 import com.sk89q.worldedit.ServerInterface;
-import com.sk89q.worldedit.WorldVector;
+import com.sk89q.worldedit.math.WorldVector;
 
 /**
  * Represents a block tool that also has a secondary/primary function.

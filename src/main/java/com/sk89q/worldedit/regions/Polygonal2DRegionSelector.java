@@ -22,17 +22,17 @@ package com.sk89q.worldedit.regions;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import com.sk89q.worldedit.BlockVector;
-import com.sk89q.worldedit.BlockVector2D;
 import com.sk89q.worldedit.IncompleteRegionException;
 import com.sk89q.worldedit.LocalPlayer;
 import com.sk89q.worldedit.LocalSession;
 import com.sk89q.worldedit.LocalWorld;
-import com.sk89q.worldedit.Vector;
 import com.sk89q.worldedit.cui.CUIRegion;
 import com.sk89q.worldedit.cui.SelectionMinMaxEvent;
 import com.sk89q.worldedit.cui.SelectionPoint2DEvent;
 import com.sk89q.worldedit.cui.SelectionShapeEvent;
+import com.sk89q.worldedit.math.BlockVector;
+import com.sk89q.worldedit.math.BlockVector2D;
+import com.sk89q.worldedit.math.Vector;
 
 /**
  * Selector for polygonal regions.

@@ -19,8 +19,8 @@
 
 package com.sk89q.worldedit.spout.selections;
 
-import com.sk89q.worldedit.Vector;
 import com.sk89q.worldedit.spout.SpoutUtil;
+import com.sk89q.worldedit.math.Vector;
 import com.sk89q.worldedit.regions.CuboidRegion;
 import com.sk89q.worldedit.regions.CuboidRegionSelector;
 import com.sk89q.worldedit.regions.RegionSelector;

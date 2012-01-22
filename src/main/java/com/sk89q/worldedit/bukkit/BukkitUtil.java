@@ -30,6 +30,10 @@ import org.bukkit.Location;
 import org.bukkit.Server;
 import org.bukkit.World;
 import com.sk89q.worldedit.*;
+import com.sk89q.worldedit.math.BlockVector;
+import com.sk89q.worldedit.math.BlockWorldVector;
+import com.sk89q.worldedit.math.Vector;
+import com.sk89q.worldedit.math.WorldVector;
 
 public class BukkitUtil {
     private BukkitUtil() {

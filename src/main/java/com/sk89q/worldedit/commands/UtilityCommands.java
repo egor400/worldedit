@@ -34,6 +34,7 @@ import static com.sk89q.minecraft.util.commands.Logging.LogMode.*;
 import com.sk89q.worldedit.*;
 import com.sk89q.worldedit.LocalWorld.KillFlags;
 import com.sk89q.worldedit.blocks.BaseBlock;
+import com.sk89q.worldedit.math.Vector;
 import com.sk89q.worldedit.patterns.*;
 import com.sk89q.worldedit.regions.CuboidRegion;
 import com.sk89q.worldedit.regions.Region;

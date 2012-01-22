@@ -19,7 +19,6 @@
 
 package com.sk89q.worldedit.math;
 
-import com.sk89q.worldedit.Vector;
 
 public class Quaternion {
     public static final Quaternion I = new Quaternion(0, 1, 0, 0);

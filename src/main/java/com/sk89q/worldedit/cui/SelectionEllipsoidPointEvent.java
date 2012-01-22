@@ -19,7 +19,7 @@
 
 package com.sk89q.worldedit.cui;
 
-import com.sk89q.worldedit.Vector;
+import com.sk89q.worldedit.math.Vector;
 
 public class SelectionEllipsoidPointEvent implements CUIEvent {
     protected int id;

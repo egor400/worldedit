@@ -19,11 +19,12 @@
 
 package com.sk89q.worldedit.spout;
 
-import com.sk89q.worldedit.BlockVector;
-import com.sk89q.worldedit.BlockWorldVector;
 import com.sk89q.worldedit.LocalWorld;
-import com.sk89q.worldedit.Vector;
-import com.sk89q.worldedit.WorldVector;
+import com.sk89q.worldedit.math.BlockVector;
+import com.sk89q.worldedit.math.BlockWorldVector;
+import com.sk89q.worldedit.math.Vector;
+import com.sk89q.worldedit.math.WorldVector;
+
 import org.spout.api.Game;
 import org.spout.api.geo.World;
 import org.spout.api.geo.cuboid.Block;

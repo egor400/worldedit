@@ -17,7 +17,9 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-package com.sk89q.worldedit;
+package com.sk89q.worldedit.math;
+
+import com.sk89q.worldedit.LocalWorld;
 
 /**
  * A WorldVector that emphasizes one side of the block

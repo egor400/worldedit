@@ -21,8 +21,8 @@ package com.sk89q.worldedit.regions;
 
 import java.util.Iterator;
 
-import com.sk89q.worldedit.BlockVector;
-import com.sk89q.worldedit.Vector;
+import com.sk89q.worldedit.math.BlockVector;
+import com.sk89q.worldedit.math.Vector;
 
 public class RegionIterator implements Iterator<BlockVector> {
     private final Region region;

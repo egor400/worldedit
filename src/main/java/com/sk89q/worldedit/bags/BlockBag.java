@@ -19,8 +19,8 @@
 
 package com.sk89q.worldedit.bags;
 
-import com.sk89q.worldedit.Vector;
 import com.sk89q.worldedit.blocks.*;
+import com.sk89q.worldedit.math.Vector;
 
 /**
  * Represents a source to get blocks from and store removed ones.

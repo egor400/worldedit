@@ -21,9 +21,9 @@ package com.sk89q.worldedit.tools.brushes;
 
 import com.sk89q.worldedit.EditSession;
 import com.sk89q.worldedit.MaxChangedBlocksException;
-import com.sk89q.worldedit.Vector;
 import com.sk89q.worldedit.blocks.BaseBlock;
 import com.sk89q.worldedit.blocks.BlockID;
+import com.sk89q.worldedit.math.Vector;
 import com.sk89q.worldedit.patterns.Pattern;
 
 import java.util.*;

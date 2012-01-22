@@ -26,9 +26,9 @@ import com.sk89q.worldedit.LocalPlayer;
 import com.sk89q.worldedit.LocalWorld;
 import com.sk89q.worldedit.PlayerNeededException;
 import com.sk89q.worldedit.ServerInterface;
-import com.sk89q.worldedit.Vector;
-import com.sk89q.worldedit.WorldVector;
 import com.sk89q.worldedit.bags.BlockBag;
+import com.sk89q.worldedit.math.Vector;
+import com.sk89q.worldedit.math.WorldVector;
 
 public class BukkitCommandSender extends LocalPlayer {
     private CommandSender sender;

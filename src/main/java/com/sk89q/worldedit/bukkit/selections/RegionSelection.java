@@ -23,7 +23,8 @@ import static com.sk89q.worldedit.bukkit.BukkitUtil.toLocation;
 import static com.sk89q.worldedit.bukkit.BukkitUtil.toVector;
 import org.bukkit.Location;
 import org.bukkit.World;
-import com.sk89q.worldedit.Vector;
+
+import com.sk89q.worldedit.math.Vector;
 import com.sk89q.worldedit.regions.Region;
 import com.sk89q.worldedit.regions.RegionSelector;
 

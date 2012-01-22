@@ -25,6 +25,10 @@ import com.sk89q.worldedit.blocks.BlockID;
 import com.sk89q.worldedit.blocks.BlockType;
 import com.sk89q.worldedit.blocks.ItemID;
 import com.sk89q.worldedit.cui.CUIEvent;
+import com.sk89q.worldedit.math.BlockWorldVector;
+import com.sk89q.worldedit.math.Vector;
+import com.sk89q.worldedit.math.WorldVector;
+import com.sk89q.worldedit.math.WorldVectorFace;
 import com.sk89q.worldedit.util.TargetBlock;
 
 /**

@@ -38,6 +38,9 @@ import com.sk89q.worldedit.expression.Expression;
 import com.sk89q.worldedit.expression.ExpressionException;
 import com.sk89q.worldedit.expression.runtime.RValue;
 import com.sk89q.worldedit.masks.Mask;
+import com.sk89q.worldedit.math.BlockVector;
+import com.sk89q.worldedit.math.BlockVector2D;
+import com.sk89q.worldedit.math.Vector;
 import com.sk89q.worldedit.patterns.*;
 
 /**

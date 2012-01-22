@@ -23,6 +23,8 @@ import com.sk89q.jnbt.CompoundTag;
 import com.sk89q.jnbt.NBTInputStream;
 import com.sk89q.jnbt.Tag;
 import com.sk89q.worldedit.*;
+import com.sk89q.worldedit.math.Vector2D;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;

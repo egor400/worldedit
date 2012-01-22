@@ -30,6 +30,7 @@ import com.sk89q.worldedit.*;
 import com.sk89q.worldedit.blocks.BaseBlock;
 import com.sk89q.worldedit.blocks.BlockID;
 import com.sk89q.worldedit.data.DataException;
+import com.sk89q.worldedit.math.Vector;
 import com.sk89q.worldedit.regions.Region;
 
 /**
