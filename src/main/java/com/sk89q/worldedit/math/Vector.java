@@ -43,32 +43,6 @@ public class Vector {
     /**
      * Construct the Vector object.
      *
-     * @param x
-     * @param y
-     * @param z
-     */
-    public Vector(int x, int y, int z) {
-        this.x = (double) x;
-        this.y = (double) y;
-        this.z = (double) z;
-    }
-
-    /**
-     * Construct the Vector object.
-     *
-     * @param x
-     * @param y
-     * @param z
-     */
-    public Vector(float x, float y, float z) {
-        this.x = (double) x;
-        this.y = (double) y;
-        this.z = (double) z;
-    }
-
-    /**
-     * Construct the Vector object.
-     *
      * @param pt
      */
     public Vector(Vector pt) {
@@ -111,16 +85,6 @@ public class Vector {
     }
 
     /**
-     * Set X.
-     *
-     * @param x
-     * @return new vector
-     */
-    public Vector setX(int x) {
-        return new Vector(x, y, z);
-    }
-
-    /**
      * @return the y
      */
     public double getY() {
@@ -141,16 +105,6 @@ public class Vector {
      * @return new vector
      */
     public Vector setY(double y) {
-        return new Vector(x, y, z);
-    }
-
-    /**
-     * Set Y.
-     *
-     * @param y
-     * @return new vector
-     */
-    public Vector setY(int y) {
         return new Vector(x, y, z);
     }
 
@@ -179,16 +133,6 @@ public class Vector {
     }
 
     /**
-     * Set Z.
-     *
-     * @param z
-     * @return new vector
-     */
-    public Vector setZ(int z) {
-        return new Vector(x, y, z);
-    }
-
-    /**
      * Adds two points.
      *
      * @param other
@@ -207,18 +151,6 @@ public class Vector {
      * @return New point
      */
     public Vector add(double x, double y, double z) {
-        return new Vector(this.x + x, this.y + y, this.z + z);
-    }
-
-    /**
-     * Adds two points.
-     *
-     * @param x
-     * @param y
-     * @param z
-     * @return New point
-     */
-    public Vector add(int x, int y, int z) {
         return new Vector(this.x + x, this.y + y, this.z + z);
     }
 
@@ -258,18 +190,6 @@ public class Vector {
      * @return New point
      */
     public Vector subtract(double x, double y, double z) {
-        return new Vector(this.x - x, this.y - y, this.z - z);
-    }
-
-    /**
-     * Subtract two points.
-     *
-     * @param x
-     * @param y
-     * @param z
-     * @return New point
-     */
-    public Vector subtract(int x, int y, int z) {
         return new Vector(this.x - x, this.y - y, this.z - z);
     }
 
@@ -315,18 +235,6 @@ public class Vector {
     /**
      * Component-wise multiplication
      *
-     * @param x
-     * @param y
-     * @param z
-     * @return New point
-     */
-    public Vector multiply(int x, int y, int z) {
-        return new Vector(this.x * x, this.y * y, this.z * z);
-    }
-
-    /**
-     * Component-wise multiplication
-     *
      * @param others
      * @return New point
      */
@@ -348,26 +256,6 @@ public class Vector {
      * @return New point
      */
     public Vector multiply(double n) {
-        return new Vector(this.x * n, this.y * n, this.z * n);
-    }
-
-    /**
-     * Scalar multiplication.
-     *
-     * @param n
-     * @return New point
-     */
-    public Vector multiply(float n) {
-        return new Vector(this.x * n, this.y * n, this.z * n);
-    }
-
-    /**
-     * Scalar multiplication.
-     *
-     * @param n
-     * @return New point
-     */
-    public Vector multiply(int n) {
         return new Vector(this.x * n, this.y * n, this.z * n);
     }
 
@@ -394,44 +282,12 @@ public class Vector {
     }
 
     /**
-     * Component-wise division
-     *
-     * @param x
-     * @param y
-     * @param z
-     * @return New point
-     */
-    public Vector divide(int x, int y, int z) {
-        return new Vector(this.x / x, this.y / y, this.z / z);
-    }
-
-    /**
-     * Scalar division.
-     *
-     * @param n
-     * @return new point
-     */
-    public Vector divide(int n) {
-        return new Vector(x / n, y / n, z / n);
-    }
-
-    /**
      * Scalar division.
      *
      * @param n
      * @return new point
      */
     public Vector divide(double n) {
-        return new Vector(x / n, y / n, z / n);
-    }
-
-    /**
-     * Scalar division.
-     *
-     * @param n
-     * @return new point
-     */
-    public Vector divide(float n) {
         return new Vector(x / n, y / n, z / n);
     }
 
@@ -543,7 +399,7 @@ public class Vector {
      * @param max
      * @return
      */
-    public Vector clampY(int min, int max) {
+    public Vector clampY(double min, double max) {
         return new Vector(x, Math.max(min, Math.min(max, y)), z);
     }
 
@@ -646,21 +502,8 @@ public class Vector {
      * @param z
      * @return point
      */
-    public static BlockVector toBlockPoint(double x, double y, double z) {
-        return new BlockVector(
-            Math.floor(x),
-            Math.floor(y),
-            Math.floor(z)
-        );
-    }
-
-    /**
-     * Get a block point from a point.
-     *
-     * @return point
-     */
-    public BlockVector toBlockPoint() {
-        return new BlockVector(
+    public static Vector toBlockPoint(double x, double y, double z) {
+        return new Vector(
             Math.floor(x),
             Math.floor(y),
             Math.floor(z)
@@ -706,15 +549,6 @@ public class Vector {
     @Override
     public String toString() {
         return "(" + x + ", " + y + ", " + z + ")";
-    }
-
-    /**
-     * Gets a BlockVector version.
-     *
-     * @return BlockVector
-     */
-    public BlockVector toBlockVector() {
-        return new BlockVector(this);
     }
 
     /**

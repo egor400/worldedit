@@ -23,7 +23,6 @@ import java.util.HashSet;
 import java.util.Set;
 import com.sk89q.worldedit.*;
 import com.sk89q.worldedit.blocks.BlockID;
-import com.sk89q.worldedit.math.BlockVector;
 import com.sk89q.worldedit.math.Vector;
 import com.sk89q.worldedit.math.WorldVector;
 import com.sk89q.worldedit.patterns.Pattern;
@@ -48,9 +47,10 @@ public class FloodFillTool implements BlockTool {
 
     public boolean actPrimary(ServerInterface server, LocalConfiguration config,
             LocalPlayer player, LocalSession session, WorldVector clicked) {
-        LocalWorld world = clicked.getWorld();
+        final LocalWorld world = clicked.getWorld();
+        final Vector position = clicked.getPosition();
 
-        int initialType = world.getBlockType(clicked);
+        final int initialType = world.getBlockType(position);
 
         if (initialType == BlockID.AIR) {
             return true;
@@ -60,11 +60,11 @@ public class FloodFillTool implements BlockTool {
             return true;
         }
 
-        EditSession editSession = session.createEditSession(player);
+        final EditSession editSession = session.createEditSession(player);
 
         try {
-            recurse(server, editSession, world, clicked.toBlockVector(),
-                    clicked, range, initialType, new HashSet<BlockVector>());
+            recurse(server, editSession, world, position,
+                    position, range, initialType, new HashSet<Vector>());
         } catch (MaxChangedBlocksException e) {
             player.printError("Max blocks change limit reached.");
         } finally {
@@ -87,9 +87,9 @@ public class FloodFillTool implements BlockTool {
      * @param visited
      */
     private void recurse(ServerInterface server, EditSession editSession,
-            LocalWorld world, BlockVector pos,
+            LocalWorld world, Vector pos,
             Vector origin, int size, int initialType,
-            Set<BlockVector> visited)
+            Set<Vector> visited)
             throws MaxChangedBlocksException {
 
         if (origin.distance(pos) > size || visited.contains(pos)) {
@@ -104,17 +104,17 @@ public class FloodFillTool implements BlockTool {
             return;
         }
 
-        recurse(server, editSession, world, pos.add(1, 0, 0).toBlockVector(),
+        recurse(server, editSession, world, pos.add(1, 0, 0),
                 origin, size, initialType, visited);
-        recurse(server, editSession, world, pos.add(-1, 0, 0).toBlockVector(),
+        recurse(server, editSession, world, pos.add(-1, 0, 0),
                 origin, size, initialType, visited);
-        recurse(server, editSession, world, pos.add(0, 0, 1).toBlockVector(),
+        recurse(server, editSession, world, pos.add(0, 0, 1),
                 origin, size, initialType, visited);
-        recurse(server, editSession, world, pos.add(0, 0, -1).toBlockVector(),
+        recurse(server, editSession, world, pos.add(0, 0, -1),
                 origin, size, initialType, visited);
-        recurse(server, editSession, world, pos.add(0, 1, 0).toBlockVector(),
+        recurse(server, editSession, world, pos.add(0, 1, 0),
                 origin, size, initialType, visited);
-        recurse(server, editSession, world, pos.add(0, -1, 0).toBlockVector(),
+        recurse(server, editSession, world, pos.add(0, -1, 0),
                 origin, size, initialType, visited);
     }
 

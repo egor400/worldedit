@@ -51,7 +51,7 @@ public class FloatingTreeRemover implements BlockTool {
 
         final LocalWorld world = clicked.getWorld();
 
-        switch (world.getBlockType(clicked)) {
+        switch (world.getBlockType(clicked.getPosition())) {
         case BlockID.LOG:
         case BlockID.LEAVES:
         case BlockID.BROWN_MUSHROOM_CAP:
@@ -66,20 +66,20 @@ public class FloatingTreeRemover implements BlockTool {
         final EditSession editSession = session.createEditSession(player);
 
         try {
-            final Set<Vector> blockSet = bfs(world, clicked);
+            final Set<Vector> blockSet = bfs(world, clicked.getPosition());
             if (blockSet == null) {
                 player.printError("That's not a floating tree.");
                 return true;
             }
 
-            for (Vector blockVector : blockSet) {
-                final int typeId = editSession.getBlock(blockVector).getType();
+            for (Vector vector : blockSet) {
+                final int typeId = editSession.getBlock(vector).getType();
                 switch (typeId) {
                 case BlockID.LOG:
                 case BlockID.LEAVES:
                 case BlockID.BROWN_MUSHROOM_CAP:
                 case BlockID.RED_MUSHROOM_CAP:
-                    editSession.setBlock(blockVector, AIR);
+                    editSession.setBlock(vector, AIR);
                 }
             }
         } catch (MaxChangedBlocksException e) {

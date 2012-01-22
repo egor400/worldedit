@@ -20,7 +20,6 @@
 package com.sk89q.worldedit;
 
 import com.sk89q.worldedit.blocks.BaseBlock;
-import com.sk89q.worldedit.math.BlockVector;
 import com.sk89q.worldedit.math.Vector;
 import com.sk89q.worldedit.patterns.Pattern;
 import com.sk89q.worldedit.regions.Region;
@@ -89,7 +88,7 @@ public abstract class ArbitraryShape {
         switch (cacheEntry) {
         case 0:
             // unknown, fetch material
-            final BaseBlock material = getMaterial(x, y, z, pattern.next(new BlockVector(x, y, z)));
+            final BaseBlock material = getMaterial(x, y, z, pattern.next(new Vector(x, y, z)));
             if (material == null) {
                 // outside
                 cache[index] = -1;
@@ -147,7 +146,7 @@ public abstract class ArbitraryShape {
     public int generate(EditSession editSession, Pattern pattern, boolean hollow) throws MaxChangedBlocksException {
         int affected = 0;
 
-        for (BlockVector position : getExtent()) {
+        for (Vector position : getExtent()) {
             int x = position.getBlockX();
             int y = position.getBlockY();
             int z = position.getBlockZ();

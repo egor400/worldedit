@@ -20,6 +20,7 @@
 package com.sk89q.worldedit.tools;
 
 import com.sk89q.worldedit.*;
+import com.sk89q.worldedit.math.Vector;
 import com.sk89q.worldedit.math.WorldVector;
 import com.sk89q.worldedit.regions.RegionSelector;
 
@@ -42,7 +43,7 @@ public class DistanceWand extends BrushTool implements DoubleActionTraceTool {
     public boolean actSecondary(ServerInterface server, LocalConfiguration config,
             LocalPlayer player, LocalSession session) {
         if (session.isToolControlEnabled() && player.hasPermission("worldedit.selection.pos")) {
-            WorldVector target = getTarget(player);
+            Vector target = getTarget(player).getPosition();
             if (target == null) return true;
 
             RegionSelector selector = session.getRegionSelector(player.getWorld());
@@ -60,7 +61,7 @@ public class DistanceWand extends BrushTool implements DoubleActionTraceTool {
     public boolean actPrimary(ServerInterface server, LocalConfiguration config,
             LocalPlayer player, LocalSession session) {
         if (session.isToolControlEnabled() && player.hasPermission("worldedit.selection.pos")) {
-            WorldVector target = getTarget(player);
+            Vector target = getTarget(player).getPosition();
             if (target == null) return true;
 
             RegionSelector selector = session.getRegionSelector(player.getWorld());

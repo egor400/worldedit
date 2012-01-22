@@ -22,7 +22,7 @@
 package com.sk89q.worldedit.spout.selections;
 
 import com.sk89q.worldedit.LocalWorld;
-import com.sk89q.worldedit.math.BlockVector2D;
+import com.sk89q.worldedit.math.Vector2D;
 import com.sk89q.worldedit.regions.Polygonal2DRegion;
 import com.sk89q.worldedit.regions.Polygonal2DRegionSelector;
 import com.sk89q.worldedit.regions.RegionSelector;
@@ -41,7 +41,7 @@ public class Polygonal2DSelection extends RegionSelection {
         this.poly2d = region;
     }
 
-    public Polygonal2DSelection(World world, List<BlockVector2D> points, int minY, int maxY) {
+    public Polygonal2DSelection(World world, List<Vector2D> points, int minY, int maxY) {
         super(world);
         LocalWorld lWorld = SpoutUtil.getLocalWorld(world);
 
@@ -60,7 +60,7 @@ public class Polygonal2DSelection extends RegionSelection {
         setRegion(poly2d);
     }
 
-    public List<BlockVector2D> getNativePoints() {
+    public List<Vector2D> getNativePoints() {
         return Collections.unmodifiableList(poly2d.getPoints());
     }
 }

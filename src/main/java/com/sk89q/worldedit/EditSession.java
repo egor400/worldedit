@@ -38,9 +38,8 @@ import com.sk89q.worldedit.expression.Expression;
 import com.sk89q.worldedit.expression.ExpressionException;
 import com.sk89q.worldedit.expression.runtime.RValue;
 import com.sk89q.worldedit.masks.Mask;
-import com.sk89q.worldedit.math.BlockVector;
-import com.sk89q.worldedit.math.BlockVector2D;
 import com.sk89q.worldedit.math.Vector;
+import com.sk89q.worldedit.math.Vector2D;
 import com.sk89q.worldedit.patterns.*;
 
 /**
@@ -68,32 +67,32 @@ public class EditSession {
     /**
      * Stores the original blocks before modification.
      */
-    private DoubleArrayList<BlockVector, BaseBlock> original =
-            new DoubleArrayList<BlockVector, BaseBlock>(true);
+    private DoubleArrayList<Vector, BaseBlock> original =
+            new DoubleArrayList<Vector, BaseBlock>(true);
 
     /**
      * Stores the current blocks.
      */
-    private DoubleArrayList<BlockVector, BaseBlock> current =
-            new DoubleArrayList<BlockVector, BaseBlock>(false);
+    private DoubleArrayList<Vector, BaseBlock> current =
+            new DoubleArrayList<Vector, BaseBlock>(false);
 
     /**
      * Blocks that should be placed before last.
      */
-    private DoubleArrayList<BlockVector, BaseBlock> queueAfter =
-            new DoubleArrayList<BlockVector, BaseBlock>(false);
+    private DoubleArrayList<Vector, BaseBlock> queueAfter =
+            new DoubleArrayList<Vector, BaseBlock>(false);
 
     /**
      * Blocks that should be placed last.
      */
-    private DoubleArrayList<BlockVector, BaseBlock> queueLast =
-            new DoubleArrayList<BlockVector, BaseBlock>(false);
+    private DoubleArrayList<Vector, BaseBlock> queueLast =
+            new DoubleArrayList<Vector, BaseBlock>(false);
 
     /**
      * Blocks that should be placed after all other blocks.
      */
-    private DoubleArrayList<BlockVector, BaseBlock> queueFinal =
-            new DoubleArrayList<BlockVector, BaseBlock>(false);
+    private DoubleArrayList<Vector, BaseBlock> queueFinal =
+            new DoubleArrayList<Vector, BaseBlock>(false);
 
     /**
      * The maximum number of blocks to change at a time. If this number is
@@ -257,19 +256,18 @@ public class EditSession {
      * @return Whether the block changed -- not entirely dependable
      * @throws MaxChangedBlocksException
      */
-    public boolean setBlock(Vector pt, BaseBlock block)
-            throws MaxChangedBlocksException {
-        BlockVector blockPt = pt.toBlockVector();
+    public boolean setBlock(Vector pt, BaseBlock block) throws MaxChangedBlocksException {
+        pt = pt.floor();
 
-        // if (!original.containsKey(blockPt)) {
-        original.put(blockPt, getBlock(pt));
+        // if (!original.containsKey(pt)) {
+        original.put(pt, getBlock(pt));
 
         if (maxBlocks != -1 && original.size() > maxBlocks) {
             throw new MaxChangedBlocksException(maxBlocks);
         }
         // }
 
-        current.put(pt.toBlockVector(), block);
+        current.put(pt, block);
 
         return smartSetBlock(pt, block);
     }
@@ -282,10 +280,10 @@ public class EditSession {
      * @param block
      */
     public void rememberChange(Vector pt, BaseBlock existing, BaseBlock block) {
-        BlockVector blockPt = pt.toBlockVector();
+        pt = pt.floor();
 
-        original.put(blockPt, existing);
-        current.put(pt.toBlockVector(), block);
+        original.put(pt, existing);
+        current.put(pt, block);
     }
 
     /**
@@ -327,19 +325,20 @@ public class EditSession {
      */
     public boolean smartSetBlock(Vector pt, BaseBlock block) {
         if (queued) {
+            pt = pt.floor();
             if (BlockType.shouldPlaceLast(block.getType())) {
                 // Place torches, etc. last
-                queueLast.put(pt.toBlockVector(), block);
+                queueLast.put(pt, block);
                 return !(getBlockType(pt) == block.getType() && getBlockData(pt) == block.getData());
             } else if (BlockType.shouldPlaceFinal(block.getType())) {
                 // Place signs, reed, etc even later
-                queueFinal.put(pt.toBlockVector(), block);
+                queueFinal.put(pt, block);
                 return !(getBlockType(pt) == block.getType() && getBlockData(pt) == block.getData());
             } else if (BlockType.shouldPlaceLast(getBlockType(pt))) {
                 // Destroy torches, etc. first
                 rawSetBlock(pt, new BaseBlock(BlockID.AIR));
             } else {
-                queueAfter.put(pt.toBlockVector(), block);
+                queueAfter.put(pt, block);
                 return !(getBlockType(pt) == block.getType() && getBlockData(pt) == block.getData());
             }
         }
@@ -358,11 +357,12 @@ public class EditSession {
         // changed yet
         if (queued) {
             /*
-             * BlockVector blockPt = pt.toBlockVector();
-             *
-             * if (current.containsKey(blockPt)) { return current.get(blockPt);
-             * }
-             */
+            Vector blockPt = pt.floor();
+
+            if (current.containsKey(blockPt)) {
+                return current.get(blockPt);
+            }
+            */
         }
 
         return rawGetBlock(pt);
@@ -379,11 +379,12 @@ public class EditSession {
         // changed yet
         if (queued) {
             /*
-             * BlockVector blockPt = pt.toBlockVector();
-             *
-             * if (current.containsKey(blockPt)) { return current.get(blockPt);
-             * }
-             */
+            Vector blockPt = pt.floor();
+
+            if (current.containsKey(blockPt)) {
+                return current.get(blockPt);
+            }
+            */
         }
 
         return world.getBlockType(pt);
@@ -394,11 +395,12 @@ public class EditSession {
         // changed yet
         if (queued) {
             /*
-             * BlockVector blockPt = pt.toBlockVector();
-             *
-             * if (current.containsKey(blockPt)) { return current.get(blockPt);
-             * }
-             */
+            Vector blockPt = pt.floor();
+
+            if (current.containsKey(blockPt)) {
+                return current.get(blockPt);
+            }
+            */
         }
 
         return world.getBlockData(pt);
@@ -466,8 +468,8 @@ public class EditSession {
      * @param sess
      */
     public void undo(EditSession sess) {
-        for (Map.Entry<BlockVector, BaseBlock> entry : original) {
-            BlockVector pt = (BlockVector) entry.getKey();
+        for (Map.Entry<Vector, BaseBlock> entry : original) {
+            Vector pt = entry.getKey();
             sess.smartSetBlock(pt, (BaseBlock) entry.getValue());
         }
         sess.flushQueue();
@@ -479,8 +481,8 @@ public class EditSession {
      * @param sess
      */
     public void redo(EditSession sess) {
-        for (Map.Entry<BlockVector, BaseBlock> entry : current) {
-            BlockVector pt = (BlockVector) entry.getKey();
+        for (Map.Entry<Vector, BaseBlock> entry : current) {
+            Vector pt = entry.getKey();
             sess.smartSetBlock(pt, (BaseBlock) entry.getValue());
         }
         sess.flushQueue();
@@ -727,46 +729,43 @@ public class EditSession {
             return;
         }
 
-        final Set<BlockVector2D> dirtyChunks = new HashSet<BlockVector2D>();
+        final Set<Vector2D> dirtyChunks = new HashSet<Vector2D>();
 
-        for (Map.Entry<BlockVector, BaseBlock> entry : queueAfter) {
-            BlockVector pt = (BlockVector) entry.getKey();
+        for (Map.Entry<Vector, BaseBlock> entry : queueAfter) {
+            Vector pt = entry.getKey();
             rawSetBlock(pt, (BaseBlock) entry.getValue());
 
             // TODO: use ChunkStore.toChunk(pt) after optimizing it.
             if (fastMode) {
-                dirtyChunks.add(new BlockVector2D(pt.getBlockX() >> 4, pt.getBlockZ() >> 4));
+                dirtyChunks.add(new Vector2D(pt.getBlockX() >> 4, pt.getBlockZ() >> 4));
             }
         }
 
         // We don't want to place these blocks if other blocks were missing
         // because it might cause the items to drop
         if (blockBag == null || missingBlocks.size() == 0) {
-            for (Map.Entry<BlockVector, BaseBlock> entry : queueLast) {
-                BlockVector pt = (BlockVector) entry.getKey();
+            for (Map.Entry<Vector, BaseBlock> entry : queueLast) {
+                Vector pt = entry.getKey();
                 rawSetBlock(pt, (BaseBlock) entry.getValue());
 
                 // TODO: use ChunkStore.toChunk(pt) after optimizing it.
                 if (fastMode) {
-                    dirtyChunks.add(new BlockVector2D(pt.getBlockX() >> 4, pt.getBlockZ() >> 4));
+                    dirtyChunks.add(new Vector2D(pt.getBlockX() >> 4, pt.getBlockZ() >> 4));
                 }
             }
 
-            final Set<BlockVector> blocks = new HashSet<BlockVector>();
-            final Map<BlockVector, BaseBlock> blockTypes = new HashMap<BlockVector, BaseBlock>();
-            for (Map.Entry<BlockVector, BaseBlock> entry : queueFinal) {
-                final BlockVector pt = entry.getKey();
-                blocks.add(pt);
-                blockTypes.put(pt, entry.getValue());
+            final Map<Vector, BaseBlock> blockTypes = new HashMap<Vector, BaseBlock>();
+            for (Map.Entry<Vector, BaseBlock> entry : queueFinal) {
+                blockTypes.put(entry.getKey(), entry.getValue());
             }
 
-            while (!blocks.isEmpty()) {
-                BlockVector current = blocks.iterator().next();
-                if (!blocks.contains(current)) {
+            while (!blockTypes.isEmpty()) {
+                Vector current = blockTypes.keySet().iterator().next();
+                if (!blockTypes.containsKey(current)) {
                     continue;
                 }
 
-                final Deque<BlockVector> walked = new LinkedList<BlockVector>();
+                final Deque<Vector> walked = new LinkedList<Vector>();
 
                 while (true) {
                     walked.addFirst(current);
@@ -783,8 +782,8 @@ public class EditSession {
                     case BlockID.IRON_DOOR:
                         if ((data & 0x8) == 0) {
                             // Deal with lower door halves being attached to the floor AND the upper half
-                            BlockVector upperBlock = current.add(0, 1, 0).toBlockVector();
-                            if (blocks.contains(upperBlock) && !walked.contains(upperBlock)) {
+                            Vector upperBlock = current.add(0, 1, 0);
+                            if (blockTypes.containsKey(upperBlock) && !walked.contains(upperBlock)) {
                                 walked.addFirst(upperBlock);
                             }
                         }
@@ -796,9 +795,9 @@ public class EditSession {
                         break;
                     }
 
-                    current = current.add(attachment.vector()).toBlockVector();
+                    current = current.add(attachment.vector());
 
-                    if (!blocks.contains(current)) {
+                    if (!blockTypes.containsKey(current)) {
                         // We ran outside the remaing set => assume we can place blocks on this
                         break;
                     }
@@ -809,13 +808,13 @@ public class EditSession {
                     }
                 }
 
-                for (BlockVector pt : walked) {
+                for (Vector pt : walked) {
                     rawSetBlock(pt, blockTypes.get(pt));
-                    blocks.remove(pt);
+                    blockTypes.remove(pt);
 
                     // TODO: use ChunkStore.toChunk(pt) after optimizing it.
                     if (fastMode) {
-                        dirtyChunks.add(new BlockVector2D(pt.getBlockX() >> 4, pt.getBlockZ() >> 4));
+                        dirtyChunks.add(new Vector2D(pt.getBlockX() >> 4, pt.getBlockZ() >> 4));
                     }
                 }
             }
@@ -843,17 +842,18 @@ public class EditSession {
             boolean recursive) throws MaxChangedBlocksException {
 
         int affected = 0;
-        int originX = origin.getBlockX();
-        int originY = origin.getBlockY();
-        int originZ = origin.getBlockZ();
+        origin = origin.floor();
+        int originX = (int) origin.getX();
+        int originY = (int) origin.getY();
+        int originZ = (int) origin.getZ();
 
-        HashSet<BlockVector> visited = new HashSet<BlockVector>();
-        Stack<BlockVector> queue = new Stack<BlockVector>();
+        HashSet<Vector> visited = new HashSet<Vector>();
+        Stack<Vector> queue = new Stack<Vector>();
 
-        queue.push(new BlockVector(originX, originY, originZ));
+        queue.push(origin);
 
         while (!queue.empty()) {
-            BlockVector pt = queue.pop();
+            Vector pt = queue.pop();
             int cx = pt.getBlockX();
             int cy = pt.getBlockY();
             int cz = pt.getBlockZ();
@@ -877,8 +877,8 @@ public class EditSession {
                     continue;
                 }
 
-                queue.push(new BlockVector(cx, cy - 1, cz));
-                queue.push(new BlockVector(cx, cy + 1, cz));
+                queue.push(new Vector(cx, cy - 1, cz));
+                queue.push(new Vector(cx, cy + 1, cz));
             } else {
                 double dist = Math.sqrt(Math.pow(originX - cx, 2)
                         + Math.pow(originZ - cz, 2));
@@ -895,10 +895,10 @@ public class EditSession {
                 }
             }
 
-            queue.push(new BlockVector(cx + 1, cy, cz));
-            queue.push(new BlockVector(cx - 1, cy, cz));
-            queue.push(new BlockVector(cx, cy, cz + 1));
-            queue.push(new BlockVector(cx, cy, cz - 1));
+            queue.push(new Vector(cx + 1, cy, cz));
+            queue.push(new Vector(cx - 1, cy, cz));
+            queue.push(new Vector(cx, cy, cz + 1));
+            queue.push(new Vector(cx, cy, cz - 1));
         }
 
         return affected;
@@ -947,63 +947,60 @@ public class EditSession {
     public int fillXZ(Vector origin, Pattern pattern, double radius, int depth,
             boolean recursive) throws MaxChangedBlocksException {
 
+        origin = origin.floor();
+        final Vector2D origin2D = origin.toVector2D();
+        final double originY = origin.getY();
+        final double minY = originY - depth + 1;
+
+        final double radiusSq = radius * radius;
+
         int affected = 0;
-        int originX = origin.getBlockX();
-        int originY = origin.getBlockY();
-        int originZ = origin.getBlockZ();
 
-        HashSet<BlockVector> visited = new HashSet<BlockVector>();
-        Stack<BlockVector> queue = new Stack<BlockVector>();
+        final HashSet<Vector> visited = new HashSet<Vector>();
+        final Stack<Vector> queue = new Stack<Vector>();
 
-        queue.push(new BlockVector(originX, originY, originZ));
+        queue.push(origin);
 
         while (!queue.empty()) {
-            BlockVector pt = queue.pop();
-            int cx = pt.getBlockX();
-            int cy = pt.getBlockY();
-            int cz = pt.getBlockZ();
-
-            if (cy < 0 || cy > originY || visited.contains(pt)) {
+            final Vector pt = queue.pop();
+            if (pt.getY() < 0 || pt.getY() > originY || visited.contains(pt)) {
                 continue;
             }
 
             visited.add(pt);
 
             if (recursive) {
-                if (origin.distance(pt) > radius) {
+                if (origin.distanceSq(pt) > radiusSq) {
                     continue;
                 }
 
-                if (getBlock(pt).isAir()) {
-                    if (setBlock(pt, pattern.next(pt))) {
-                        ++affected;
-                    }
-                } else {
+                if (!getBlock(pt).isAir()) {
                     continue;
                 }
 
-                queue.push(new BlockVector(cx, cy - 1, cz));
-                queue.push(new BlockVector(cx, cy + 1, cz));
+                if (setBlock(pt, pattern.next(pt))) {
+                    ++affected;
+                }
+
+                queue.push(pt.add(0, -1, 0));
+                queue.push(pt.add(0,  1, 0));
             } else {
-                double dist = Math.sqrt(Math.pow(originX - cx, 2)
-                        + Math.pow(originZ - cz, 2));
-                int minY = originY - depth + 1;
-
-                if (dist > radius) {
+                final Vector2D pt2D = pt.toVector2D();
+                if (origin2D.distanceSq(pt2D) > radiusSq) {
                     continue;
                 }
 
-                if (getBlock(pt).isAir()) {
-                    affected += fillY(cx, originY, cz, pattern, minY);
-                } else {
+                if (!getBlock(pt).isAir()) {
                     continue;
                 }
+
+                affected += fillY(pt2D, originY, pattern, minY);
             }
 
-            queue.push(new BlockVector(cx + 1, cy, cz));
-            queue.push(new BlockVector(cx - 1, cy, cz));
-            queue.push(new BlockVector(cx, cy, cz + 1));
-            queue.push(new BlockVector(cx, cy, cz - 1));
+            queue.push(pt.add( 1, 0,  0));
+            queue.push(pt.add(-1, 0,  0));
+            queue.push(pt.add( 0, 0,  1));
+            queue.push(pt.add( 0, 0, -1));
         }
 
         return affected;
@@ -1020,19 +1017,18 @@ public class EditSession {
      * @throws MaxChangedBlocksException
      * @return
      */
-    private int fillY(int x, int cy, int z, Pattern pattern, int minY)
-            throws MaxChangedBlocksException {
+    private int fillY(Vector2D pt2D, double cy, Pattern pattern, double minY) throws MaxChangedBlocksException {
         int affected = 0;
 
-        for (int y = cy; y >= minY; --y) {
-            Vector pt = new Vector(x, y, z);
+        for (double y = cy; y >= minY; --y) {
+            Vector pt = pt2D.toVector(y);
 
-            if (getBlock(pt).isAir()) {
-                setBlock(pt, pattern.next(pt));
-                ++affected;
-            } else {
+            if (!getBlock(pt).isAir()) {
                 break;
             }
+
+            setBlock(pt, pattern.next(pt));
+            ++affected;
         }
 
         return affected;
@@ -1860,19 +1856,19 @@ public class EditSession {
             throws MaxChangedBlocksException {
         int affected = 0;
 
-        HashSet<BlockVector> visited = new HashSet<BlockVector>();
-        Stack<BlockVector> queue = new Stack<BlockVector>();
+        HashSet<Vector> visited = new HashSet<Vector>();
+        Stack<Vector> queue = new Stack<Vector>();
 
         for (int x = pos.getBlockX() - 1; x <= pos.getBlockX() + 1; ++x) {
             for (int z = pos.getBlockZ() - 1; z <= pos.getBlockZ() + 1; ++z) {
                 for (int y = pos.getBlockY() - 1; y <= pos.getBlockY() + 1; ++y) {
-                    queue.push(new BlockVector(x, y, z));
+                    queue.push(new Vector(x, y, z));
                 }
             }
         }
 
         while (!queue.empty()) {
-            BlockVector cur = queue.pop();
+            Vector cur = queue.pop();
 
             int type = getBlockType(cur);
 
@@ -1897,7 +1893,7 @@ public class EditSession {
             for (int x = cur.getBlockX() - 1; x <= cur.getBlockX() + 1; ++x) {
                 for (int z = cur.getBlockZ() - 1; z <= cur.getBlockZ() + 1; ++z) {
                     for (int y = cur.getBlockY() - 1; y <= cur.getBlockY() + 1; ++y) {
-                        BlockVector newPos = new BlockVector(x, y, z);
+                        Vector newPos = new Vector(x, y, z);
 
                         if (!cur.equals(newPos)) {
                             queue.push(newPos);
@@ -1928,8 +1924,8 @@ public class EditSession {
             throws MaxChangedBlocksException {
         int affected = 0;
 
-        HashSet<BlockVector> visited = new HashSet<BlockVector>();
-        Stack<BlockVector> queue = new Stack<BlockVector>();
+        HashSet<Vector> visited = new HashSet<Vector>();
+        Stack<Vector> queue = new Stack<Vector>();
 
         for (int x = pos.getBlockX() - 1; x <= pos.getBlockX() + 1; ++x) {
             for (int z = pos.getBlockZ() - 1; z <= pos.getBlockZ() + 1; ++z) {
@@ -1938,7 +1934,7 @@ public class EditSession {
 
                     // Check block type
                     if (type == moving || type == stationary) {
-                        queue.push(new BlockVector(x, y, z));
+                        queue.push(new Vector(x, y, z));
                     }
                 }
             }
@@ -1947,7 +1943,7 @@ public class EditSession {
         BaseBlock stationaryBlock = new BaseBlock(stationary);
 
         while (!queue.empty()) {
-            BlockVector cur = queue.pop();
+            Vector cur = queue.pop();
 
             int type = getBlockType(cur);
 
@@ -1972,10 +1968,10 @@ public class EditSession {
                 continue;
             }
 
-            queue.push(cur.add(1, 0, 0).toBlockVector());
-            queue.push(cur.add(-1, 0, 0).toBlockVector());
-            queue.push(cur.add(0, 0, 1).toBlockVector());
-            queue.push(cur.add(0, 0, -1).toBlockVector());
+            queue.push(cur.add(1, 0, 0));
+            queue.push(cur.add(-1, 0, 0));
+            queue.push(cur.add(0, 0, 1));
+            queue.push(cur.add(0, 0, -1));
         }
 
         return affected;
@@ -2682,9 +2678,9 @@ public class EditSession {
 
         Vector zero2 = zero.add(0.5, 0.5, 0.5);
 
-        final DoubleArrayList<BlockVector, BaseBlock> queue = new DoubleArrayList<BlockVector, BaseBlock>(false);
+        final DoubleArrayList<Vector, BaseBlock> queue = new DoubleArrayList<Vector, BaseBlock>(false);
 
-        for (BlockVector position : region) {
+        for (Vector position : region) {
             // offset, scale
             final Vector scaled = position.subtract(zero).divide(unit);
 
@@ -2694,7 +2690,7 @@ public class EditSession {
             final Vector sourceScaled = new Vector(x.getValue(), y.getValue(), z.getValue());
 
             // unscale, unoffset, round-nearest
-            final BlockVector sourcePosition = sourceScaled.multiply(unit).add(zero2).toBlockPoint();
+            final Vector sourcePosition = sourceScaled.multiply(unit).add(zero2);
 
             // read block from world
             BaseBlock material = new BaseBlock(world.getBlockType(sourcePosition), world.getBlockData(sourcePosition));
@@ -2704,8 +2700,8 @@ public class EditSession {
         }
 
         int affected = 0;
-        for (Map.Entry<BlockVector, BaseBlock> entry : queue) {
-            BlockVector position = entry.getKey();
+        for (Map.Entry<Vector, BaseBlock> entry : queue) {
+            Vector position = entry.getKey();
             BaseBlock material = entry.getValue();
 
             // set at new position
@@ -2739,7 +2735,7 @@ public class EditSession {
     public int hollowOutRegion(Region region, int thickness, Pattern pattern) throws MaxChangedBlocksException {
         int affected = 0;
 
-        final Set<BlockVector> outside = new HashSet<BlockVector>();
+        final Set<Vector> outside = new HashSet<Vector>();
 
         final Vector min = region.getMinimumPoint();
         final Vector max = region.getMaximumPoint();
@@ -2753,30 +2749,30 @@ public class EditSession {
 
         for (int x = minX; x <= maxX; ++x) {
             for (int y = minY; y <= maxY; ++y) {
-                recurseHollow(region, new BlockVector(x, y, minZ), outside);
-                recurseHollow(region, new BlockVector(x, y, maxZ), outside);
+                recurseHollow(region, new Vector(x, y, minZ), outside);
+                recurseHollow(region, new Vector(x, y, maxZ), outside);
             }
         }
 
         for (int y = minY; y <= maxY; ++y) {
             for (int z = minZ; z <= maxZ; ++z) {
-                recurseHollow(region, new BlockVector(minX, y, z), outside);
-                recurseHollow(region, new BlockVector(maxX, y, z), outside);
+                recurseHollow(region, new Vector(minX, y, z), outside);
+                recurseHollow(region, new Vector(maxX, y, z), outside);
             }
         }
 
         for (int z = minZ; z <= maxZ; ++z) {
             for (int x = minX; x <= maxX; ++x) {
-                recurseHollow(region, new BlockVector(x, minY, z), outside);
-                recurseHollow(region, new BlockVector(x, maxY, z), outside);
+                recurseHollow(region, new Vector(x, minY, z), outside);
+                recurseHollow(region, new Vector(x, maxY, z), outside);
             }
         }
 
         for (int i = 1; i < thickness; ++i) {
-            final Set<BlockVector> newOutside = new HashSet<BlockVector>();
-            outer: for (BlockVector position : region) {
+            final Set<Vector> newOutside = new HashSet<Vector>();
+            outer: for (Vector position : region) {
                 for (Vector recurseDirection: recurseDirections) {
-                    BlockVector neighbor = position.add(recurseDirection).toBlockVector();
+                    Vector neighbor = position.add(recurseDirection);
 
                     if (outside.contains(neighbor)) {
                         newOutside.add(position);
@@ -2788,9 +2784,9 @@ public class EditSession {
             outside.addAll(newOutside);
         }
 
-        outer: for (BlockVector position : region) {
+        outer: for (Vector position : region) {
             for (Vector recurseDirection: recurseDirections) {
-                BlockVector neighbor = position.add(recurseDirection).toBlockVector();
+                Vector neighbor = position.add(recurseDirection);
 
                 if (outside.contains(neighbor)) {
                     continue outer;
@@ -2805,12 +2801,12 @@ public class EditSession {
         return affected;
     }
 
-    private void recurseHollow(Region region, BlockVector origin, Set<BlockVector> outside) {
-        final LinkedList<BlockVector> queue = new LinkedList<BlockVector>();
+    private void recurseHollow(Region region, Vector origin, Set<Vector> outside) {
+        final LinkedList<Vector> queue = new LinkedList<Vector>();
         queue.addLast(origin);
 
         while (!queue.isEmpty()) {
-            final BlockVector current = queue.removeFirst();
+            final Vector current = queue.removeFirst();
             if (!BlockType.canPassThrough(getBlockType(current))) {
                 continue;
             }
@@ -2824,7 +2820,7 @@ public class EditSession {
             }
 
             for (Vector recurseDirection: recurseDirections) {
-                queue.addLast(current.add(recurseDirection).toBlockVector());
+                queue.addLast(current.add(recurseDirection));
             }
         } // while
     }

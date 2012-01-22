@@ -27,8 +27,6 @@ import java.util.List;
 import java.util.Set;
 import com.sk89q.worldedit.LocalWorld;
 import com.sk89q.worldedit.data.ChunkStore;
-import com.sk89q.worldedit.math.BlockVector;
-import com.sk89q.worldedit.math.BlockVector2D;
 import com.sk89q.worldedit.math.Vector;
 import com.sk89q.worldedit.math.Vector2D;
 
@@ -38,9 +36,9 @@ import com.sk89q.worldedit.math.Vector2D;
  * @author sk89q
  */
 public class Polygonal2DRegion extends AbstractRegion {
-    private List<BlockVector2D> points;
-    private BlockVector min;
-    private BlockVector max;
+    private List<Vector2D> points;
+    private Vector min;
+    private Vector max;
     private int minY;
     private int maxY;
     private boolean hasY = false;
@@ -58,7 +56,7 @@ public class Polygonal2DRegion extends AbstractRegion {
      * @param world
      */
     public Polygonal2DRegion(LocalWorld world) {
-        this(world, Collections.<BlockVector2D>emptyList(), 0, 0);
+        this(world, Collections.<Vector2D>emptyList(), 0, 0);
         hasY = false;
     }
 
@@ -70,9 +68,9 @@ public class Polygonal2DRegion extends AbstractRegion {
      * @param minY
      * @param maxY
      */
-    public Polygonal2DRegion(LocalWorld world, List<BlockVector2D> points, int minY, int maxY) {
+    public Polygonal2DRegion(LocalWorld world, List<Vector2D> points, int minY, int maxY) {
         super(world);
-        this.points = new ArrayList<BlockVector2D>(points);
+        this.points = new ArrayList<Vector2D>(points);
         this.minY = minY;
         this.maxY = maxY;
         hasY = true;
@@ -89,7 +87,7 @@ public class Polygonal2DRegion extends AbstractRegion {
      * 
      * @return
      */
-    public List<BlockVector2D> getPoints() {
+    public List<Vector2D> getPoints() {
         return Collections.unmodifiableList(points);
     }
 
@@ -99,8 +97,8 @@ public class Polygonal2DRegion extends AbstractRegion {
      */
     protected void recalculate() {
         if (points.size() == 0) {
-            min = new BlockVector(0, 0, 0);
-            max = new BlockVector(0, 0, 0);
+            min = new Vector(0, 0, 0);
+            max = new Vector(0, 0, 0);
             return;
         }
 
@@ -109,7 +107,7 @@ public class Polygonal2DRegion extends AbstractRegion {
         int maxX = points.get(0).getBlockX();
         int maxZ = points.get(0).getBlockZ();
 
-        for (BlockVector2D v : points) {
+        for (Vector2D v : points) {
             int x = v.getBlockX();
             int z = v.getBlockZ();
             if (x < minX) minX = x;
@@ -126,8 +124,8 @@ public class Polygonal2DRegion extends AbstractRegion {
         minY = Math.min(Math.max(0, minY), world == null ? 127 : world.getMaxY());
         maxY = Math.min(Math.max(0, maxY), world == null ? 127 : world.getMaxY());
 
-        min = new BlockVector(minX, minY, minZ);
-        max = new BlockVector(maxX, maxY, maxZ);
+        min = new Vector(minX, minY, minZ);
+        max = new Vector(maxX, maxY, maxZ);
     }
 
     /**
@@ -136,16 +134,6 @@ public class Polygonal2DRegion extends AbstractRegion {
      * @param pt
      */
     public void addPoint(Vector2D pt) {
-        points.add(pt.toBlockVector2D());
-        recalculate();
-    }
-
-    /**
-     * Add a point to the list.
-     * 
-     * @param pt
-     */
-    public void addPoint(BlockVector2D pt) {
         points.add(pt);
         recalculate();
     }
@@ -156,7 +144,7 @@ public class Polygonal2DRegion extends AbstractRegion {
      * @param pt
      */
     public void addPoint(Vector pt) {
-        points.add(new BlockVector2D(pt.getBlockX(), pt.getBlockZ()));
+        points.add(new Vector2D(pt.getBlockX(), pt.getBlockZ()));
         recalculate();
     }
 
@@ -309,8 +297,8 @@ public class Polygonal2DRegion extends AbstractRegion {
         final double changeZ = change.getZ();
 
         for (int i = 0; i < points.size(); ++i) {
-            BlockVector2D point = points.get(i);
-            points.set(i, new BlockVector2D(point.getX() + changeX, point.getZ() + changeZ));
+            Vector2D point = points.get(i);
+            points.set(i, new Vector2D(point.getX() + changeX, point.getZ() + changeZ));
         }
 
         minY += changeY;
@@ -335,8 +323,7 @@ public class Polygonal2DRegion extends AbstractRegion {
      * @param pt 
      * @return 
      */
-    public static boolean contains(List<BlockVector2D> points, int minY,
-            int maxY, Vector pt) {
+    public static boolean contains(List<Vector2D> points, int minY, int maxY, Vector pt) {
         if (points.size() < 3) {
             return false;
         }
@@ -457,7 +444,7 @@ public class Polygonal2DRegion extends AbstractRegion {
      * @return iterator of points inside the region
      */
     @Override
-    public Iterator<BlockVector> iterator() {
+    public Iterator<Vector> iterator() {
         return new RegionIterator(this);
     }
 
@@ -470,10 +457,10 @@ public class Polygonal2DRegion extends AbstractRegion {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        List<BlockVector2D> pts = getPoints();
-        Iterator<BlockVector2D> it = pts.iterator();
+        List<Vector2D> pts = getPoints();
+        Iterator<Vector2D> it = pts.iterator();
         while (it.hasNext()) {
-            BlockVector2D current = it.next();
+            Vector2D current = it.next();
             sb.append("(" + current.getBlockX() + ", " + current.getBlockZ() + ")");
             if (it.hasNext()) sb.append(" - ");
         }

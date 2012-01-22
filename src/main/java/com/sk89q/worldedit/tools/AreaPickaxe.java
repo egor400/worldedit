@@ -45,10 +45,11 @@ public class AreaPickaxe implements BlockTool {
     public boolean actPrimary(ServerInterface server, LocalConfiguration config,
             LocalPlayer player, LocalSession session, WorldVector clicked) {
         LocalWorld world = clicked.getWorld();
-        int ox = clicked.getBlockX();
-        int oy = clicked.getBlockY();
-        int oz = clicked.getBlockZ();
-        int initialType = world.getBlockType(clicked);
+        Vector clickedVector = clicked.getPosition();
+        int ox = clickedVector.getBlockX();
+        int oy = clickedVector.getBlockY();
+        int oz = clickedVector.getBlockZ();
+        int initialType = world.getBlockType(clickedVector);
 
         if (initialType == 0) {
             return true;
@@ -72,7 +73,7 @@ public class AreaPickaxe implements BlockTool {
                             world.simulateBlockMine(pos);
                         }
 
-                        world.queueBlockBreakEffect(server, pos, initialType, clicked.distanceSq(pos));
+                        world.queueBlockBreakEffect(server, pos, initialType, clickedVector.distanceSq(pos));
 
                         editSession.setBlock(pos, air);
                     }

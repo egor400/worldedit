@@ -252,7 +252,7 @@ public class GenerationCommands {
             return;
         }
 
-        int affected = editSession.makeForest(player.getPosition(),
+        int affected = editSession.makeForest(player.getPosition().getPosition(),
                 size, density, new TreeGenerator(type));
         player.print(affected + " trees created.");
     }
@@ -271,7 +271,7 @@ public class GenerationCommands {
 
         int size = args.argsLength() > 0 ? Math.max(1, args.getInteger(0)) : 10;
 
-        int affected = editSession.makePumpkinPatches(player.getPosition(), size);
+        int affected = editSession.makePumpkinPatches(player.getPosition().getPosition(), size);
         player.print(affected + " pumpkin patches created.");
     }
 

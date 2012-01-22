@@ -30,7 +30,6 @@ import com.sk89q.worldedit.cui.SelectionCylinderEvent;
 import com.sk89q.worldedit.cui.SelectionMinMaxEvent;
 import com.sk89q.worldedit.cui.SelectionPointEvent;
 import com.sk89q.worldedit.cui.SelectionShapeEvent;
-import com.sk89q.worldedit.math.BlockVector;
 import com.sk89q.worldedit.math.Vector;
 import com.sk89q.worldedit.math.Vector2D;
 
@@ -129,12 +128,12 @@ public class CylinderRegionSelector implements RegionSelector, CUIRegion {
         session.describeCUI(player);
     }
 
-    public BlockVector getPrimaryPosition() throws IncompleteRegionException {
+    public Vector getPrimaryPosition() throws IncompleteRegionException {
         if (!isDefined()) {
             throw new IncompleteRegionException();
         }
 
-        return region.getCenter().toBlockVector();
+        return region.getCenter();
     }
 
     public CylinderRegion getRegion() throws IncompleteRegionException {

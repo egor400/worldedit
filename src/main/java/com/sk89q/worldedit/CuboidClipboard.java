@@ -22,7 +22,6 @@ package com.sk89q.worldedit;
 import com.sk89q.jnbt.*;
 import com.sk89q.worldedit.blocks.*;
 import com.sk89q.worldedit.data.*;
-import com.sk89q.worldedit.math.BlockVector;
 import com.sk89q.worldedit.math.Vector;
 
 import java.io.File;
@@ -473,8 +472,8 @@ public class CuboidClipboard {
         // Need to pull out tile entities
         List<Tag> tileEntities = (List<Tag>) ((ListTag) getChildTag(schematic, "TileEntities", ListTag.class))
                 .getValue();
-        Map<BlockVector, Map<String, Tag>> tileEntitiesMap =
-                new HashMap<BlockVector, Map<String, Tag>>();
+        Map<Vector, Map<String, Tag>> tileEntitiesMap =
+                new HashMap<Vector, Map<String, Tag>>();
 
         for (Tag tag : tileEntities) {
             if (!(tag instanceof CompoundTag)) continue;
@@ -504,7 +503,7 @@ public class CuboidClipboard {
                 values.put(entry.getKey(), entry.getValue());
             }
 
-            BlockVector vec = new BlockVector(x, y, z);
+            Vector vec = new Vector(x, y, z);
             tileEntitiesMap.put(vec, values);
         }
 
@@ -517,7 +516,7 @@ public class CuboidClipboard {
             for (int y = 0; y < height; ++y) {
                 for (int z = 0; z < length; ++z) {
                     int index = y * width * length + z * width + x;
-                    BlockVector pt = new BlockVector(x, y, z);
+                    Vector pt = new Vector(x, y, z);
                     BaseBlock block;
 
                     switch (blocks[index]) {

@@ -43,7 +43,6 @@ import org.bukkit.entity.Tameable;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.Effect;
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.TreeType;
 import org.bukkit.World;
@@ -52,7 +51,6 @@ import com.sk89q.worldedit.EditSession;
 import com.sk89q.worldedit.LocalWorld;
 import com.sk89q.worldedit.blocks.*;
 import com.sk89q.worldedit.EntityType;
-import com.sk89q.worldedit.math.BlockVector2D;
 import com.sk89q.worldedit.math.Vector;
 import com.sk89q.worldedit.math.Vector2D;
 import com.sk89q.worldedit.regions.Region;
@@ -479,7 +477,7 @@ public class BukkitWorld extends LocalWorld {
         int num = 0;
         double radiusSq = radius * radius;
 
-        Location bukkitOrigin = BukkitUtil.toLocation(world, origin);
+        org.bukkit.Location bukkitOrigin = BukkitUtil.toLocation(world, origin);
 
         for (LivingEntity ent : world.getLivingEntities()) {
             if (ent instanceof HumanEntity) {
@@ -738,8 +736,8 @@ public class BukkitWorld extends LocalWorld {
     }
 
     @Override
-    public void fixAfterFastMode(Iterable<BlockVector2D> chunks) {
-        for (BlockVector2D chunkPos : chunks) {
+    public void fixAfterFastMode(Iterable<Vector2D> chunks) {
+        for (Vector2D chunkPos : chunks) {
             world.refreshChunk(chunkPos.getBlockX(), chunkPos.getBlockZ());
         }
     }

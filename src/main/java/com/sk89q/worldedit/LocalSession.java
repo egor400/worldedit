@@ -376,7 +376,7 @@ public class LocalSession {
     public Vector getPlacementPosition(LocalPlayer player)
             throws IncompleteRegionException {
         if (!placeAtPos1) {
-            return player.getBlockIn();
+            return player.getBlockIn().getPosition();
         }
 
         return selector.getPrimaryPosition();

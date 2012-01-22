@@ -26,11 +26,12 @@ import com.sk89q.worldedit.LocalWorld;
  * 
  * @author sk89q
  */
-public class WorldVector extends Vector {
+public class WorldVector {
     /**
      * Represents the world.
      */
-    private LocalWorld world;
+    private final LocalWorld world;
+    private final Vector position;
 
     /**
      * Construct the Vector object.
@@ -41,45 +42,18 @@ public class WorldVector extends Vector {
      * @param z
      */
     public WorldVector(LocalWorld world, double x, double y, double z) {
-        super(x, y, z);
-        this.world = world;
+        this(world, new Vector(x, y, z));
     }
 
     /**
      * Construct the Vector object.
      *
      * @param world 
-     * @param x
-     * @param y
-     * @param z
+     * @param position
      */
-    public WorldVector(LocalWorld world, int x, int y, int z) {
-        super(x, y, z);
+    public WorldVector(LocalWorld world, Vector position) {
         this.world = world;
-    }
-
-    /**
-     * Construct the Vector object.
-     *
-     * @param world 
-     * @param x
-     * @param y
-     * @param z
-     */
-    public WorldVector(LocalWorld world, float x, float y, float z) {
-        super(x, y, z);
-        this.world = world;
-    }
-
-    /**
-     * Construct the Vector object.
-     *
-     * @param world 
-     * @param pt
-     */
-    public WorldVector(LocalWorld world, Vector pt) {
-        super(pt);
-        this.world = world;
+        this.position = position;
     }
 
     /**
@@ -88,17 +62,25 @@ public class WorldVector extends Vector {
      * @param world 
      */
     public WorldVector(LocalWorld world) {
-        super();
-        this.world = world;
+        this(world, 0, 0, 0);
     }
 
     /**
      * Get the world.
      * 
-     * @return
+     * @return world
      */
     public LocalWorld getWorld() {
         return world;
+    }
+
+    /**
+     * Get the position.
+     * 
+     * @return position
+     */
+    public Vector getPosition() {
+        return position;
     }
 
     /**
@@ -110,19 +92,7 @@ public class WorldVector extends Vector {
      * @param z
      * @return point
      */
-    public static WorldVector toBlockPoint(LocalWorld world, double x, double y,
-            double z) {
-        return new WorldVector(world, (int) Math.floor(x),
-                 (int) Math.floor(y),
-                 (int) Math.floor(z));
-    }
-
-    /**
-     * Gets a BlockVector version.
-     * 
-     * @return BlockWorldVector
-     */
-    public BlockWorldVector toWorldBlockVector() {
-        return new BlockWorldVector(this);
+    public WorldVector toBlockPoint() {
+        return new WorldVector(world, position.floor());
     }
 }

@@ -25,7 +25,6 @@ import com.sk89q.worldedit.blocks.BlockID;
 import com.sk89q.worldedit.blocks.BlockType;
 import com.sk89q.worldedit.blocks.ItemID;
 import com.sk89q.worldedit.cui.CUIEvent;
-import com.sk89q.worldedit.math.BlockWorldVector;
 import com.sk89q.worldedit.math.Vector;
 import com.sk89q.worldedit.math.WorldVector;
 import com.sk89q.worldedit.math.WorldVectorFace;
@@ -72,8 +71,9 @@ public abstract class LocalPlayer {
      *
      * @param searchPos search position
      */
-    public void findFreePosition(WorldVector searchPos) {
-        LocalWorld world = searchPos.getWorld();
+    public void findFreePosition(WorldVector searchLocation) {
+        LocalWorld world = searchLocation.getWorld();
+        Vector searchPos = searchLocation.getPosition();
         int x = searchPos.getBlockX();
         int y = Math.max(0, searchPos.getBlockY());
         int origY = y;
@@ -105,8 +105,9 @@ public abstract class LocalPlayer {
      *
      * @param searchPos
      */
-    public void setOnGround(WorldVector searchPos) {
-        LocalWorld world = searchPos.getWorld();
+    public void setOnGround(WorldVector searchLocation) {
+        LocalWorld world = searchLocation.getWorld();
+        Vector searchPos = searchLocation.getPosition();
         int x = searchPos.getBlockX();
         int y = Math.max(0, searchPos.getBlockY());
         int z = searchPos.getBlockZ();
@@ -137,7 +138,7 @@ public abstract class LocalPlayer {
      * @return true if a spot was found
      */
     public boolean ascendLevel() {
-        Vector pos = getBlockIn();
+        Vector pos = getBlockIn().getPosition();
         int x = pos.getBlockX();
         int y = Math.max(0, pos.getBlockY());
         int z = pos.getBlockZ();
@@ -180,7 +181,7 @@ public abstract class LocalPlayer {
      * @return true if a spot was found
      */
     public boolean descendLevel() {
-        Vector pos = getBlockIn();
+        Vector pos = getBlockIn().getPosition();
         int x = pos.getBlockX();
         int y = Math.max(0, pos.getBlockY() - 1);
         int z = pos.getBlockZ();
@@ -228,7 +229,7 @@ public abstract class LocalPlayer {
      * @return whether the player was moved
      */
     public boolean ascendToCeiling(int clearance) {
-        Vector pos = getBlockIn();
+        Vector pos = getBlockIn().getPosition();
         int x = pos.getBlockX();
         int initialY = Math.max(0, pos.getBlockY());
         int y = Math.max(0, pos.getBlockY() + 2);
@@ -262,7 +263,7 @@ public abstract class LocalPlayer {
      * @return whether the player was moved
      */
     public boolean ascendUpwards(int distance) {
-        Vector pos = getBlockIn();
+        Vector pos = getBlockIn().getPosition();
         int x = pos.getBlockX();
         int initialY = Math.max(0, pos.getBlockY());
         int y = Math.max(0, pos.getBlockY() + 1);
@@ -293,9 +294,7 @@ public abstract class LocalPlayer {
      * @return point
      */
     public WorldVector getBlockIn() {
-        WorldVector pos = getPosition();
-        return WorldVector.toBlockPoint(pos.getWorld(), pos.getX(),
-                pos.getY(), pos.getZ());
+        return getPosition().toBlockPoint();
     }
 
     /**
@@ -304,9 +303,8 @@ public abstract class LocalPlayer {
      * @return point
      */
     public WorldVector getBlockOn() {
-        WorldVector pos = getPosition();
-        return WorldVector.toBlockPoint(pos.getWorld(), pos.getX(),
-                pos.getY() - 1, pos.getZ());
+        WorldVector location = getPosition();
+        return new WorldVector(location.getWorld(), location.getPosition().add(0, -1, 0));
     }
 
     /**
@@ -479,13 +477,13 @@ public abstract class LocalPlayer {
         int searchDist = 0;
         TargetBlock hitBlox = new TargetBlock(this, range, 0.2);
         LocalWorld world = getPosition().getWorld();
-        BlockWorldVector block;
+        WorldVector block;
         boolean firstBlock = true;
         int freeToFind = 2;
         boolean inFree = false;
 
         while ((block = hitBlox.getNextBlock()) != null) {
-            boolean free = BlockType.canPassThrough(world.getBlockType(block));
+            boolean free = BlockType.canPassThrough(world.getBlockType(block.getPosition()));
 
             if (firstBlock) {
                 firstBlock = false;

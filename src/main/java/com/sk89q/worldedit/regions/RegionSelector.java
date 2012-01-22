@@ -23,7 +23,6 @@ import java.util.List;
 import com.sk89q.worldedit.IncompleteRegionException;
 import com.sk89q.worldedit.LocalPlayer;
 import com.sk89q.worldedit.LocalSession;
-import com.sk89q.worldedit.math.BlockVector;
 import com.sk89q.worldedit.math.Vector;
 
 /**
@@ -83,7 +82,7 @@ public interface RegionSelector {
      * @return
      * @throws IncompleteRegionException 
      */
-    public BlockVector getPrimaryPosition() throws IncompleteRegionException;
+    public Vector getPrimaryPosition() throws IncompleteRegionException;
 
     /**
      * Get the selection.

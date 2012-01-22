@@ -74,6 +74,10 @@ public enum VectorFace {
         return modY;
     }
 
+    public Vector getMod() {
+        return new Vector(modX, modY, modZ);
+    }
+
     public static VectorFace fromMods(int modX2, int modY2, int modZ2) {
         for (VectorFace face : values()) {
             if (face.getModX() == modX2

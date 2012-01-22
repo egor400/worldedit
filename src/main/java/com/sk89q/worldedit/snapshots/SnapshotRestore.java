@@ -20,7 +20,6 @@
 package com.sk89q.worldedit.snapshots;
 
 import com.sk89q.worldedit.*;
-import com.sk89q.worldedit.math.BlockVector2D;
 import com.sk89q.worldedit.math.Vector;
 import com.sk89q.worldedit.math.Vector2D;
 import com.sk89q.worldedit.regions.*;
@@ -40,8 +39,8 @@ public class SnapshotRestore {
     /**
      * Store a list of chunks that are needed and the points in them.
      */
-    private Map<BlockVector2D, ArrayList<Vector>> neededChunks =
-            new LinkedHashMap<BlockVector2D, ArrayList<Vector>>();
+    private Map<Vector2D, ArrayList<Vector>> neededChunks =
+            new LinkedHashMap<Vector2D, ArrayList<Vector>>();
     /**
      * Chunk store.
      */
@@ -90,7 +89,7 @@ public class SnapshotRestore {
             for (int y = min.getBlockY(); y <= max.getBlockY(); ++y) {
                 for (int z = min.getBlockZ(); z <= max.getBlockZ(); ++z) {
                     Vector pos = new Vector(x, y, z);
-                    BlockVector2D chunkPos = ChunkStore.toChunk(pos);
+                    Vector2D chunkPos = ChunkStore.toChunk(pos);
 
                     // Unidentified chunk
                     if (!neededChunks.containsKey(chunkPos)) {
@@ -112,7 +111,7 @@ public class SnapshotRestore {
         // First, we need to group points by chunk so that we only need
         // to keep one chunk in memory at any given moment
         for (Vector pos : region) {
-            BlockVector2D chunkPos = ChunkStore.toChunk(pos);
+            Vector2D chunkPos = ChunkStore.toChunk(pos);
 
             // Unidentified chunk
             if (!neededChunks.containsKey(chunkPos)) {
@@ -145,8 +144,8 @@ public class SnapshotRestore {
         errorChunks = new ArrayList<Vector2D>();
 
         // Now let's start restoring!
-        for (Map.Entry<BlockVector2D, ArrayList<Vector>> entry : neededChunks.entrySet()) {
-            BlockVector2D chunkPos = entry.getKey();
+        for (Map.Entry<Vector2D, ArrayList<Vector>> entry : neededChunks.entrySet()) {
+            Vector2D chunkPos = entry.getKey();
             Chunk chunk;
 
             try {

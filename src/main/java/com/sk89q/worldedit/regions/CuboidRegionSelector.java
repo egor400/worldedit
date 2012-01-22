@@ -27,7 +27,6 @@ import com.sk89q.worldedit.LocalSession;
 import com.sk89q.worldedit.LocalWorld;
 import com.sk89q.worldedit.cui.CUIRegion;
 import com.sk89q.worldedit.cui.SelectionPointEvent;
-import com.sk89q.worldedit.math.BlockVector;
 import com.sk89q.worldedit.math.Vector;
 
 /**
@@ -36,8 +35,8 @@ import com.sk89q.worldedit.math.Vector;
  * @author sk89q
  */
 public class CuboidRegionSelector implements RegionSelector, CUIRegion {
-    protected BlockVector pos1;
-    protected BlockVector pos2;
+    protected Vector pos1;
+    protected Vector pos2;
     protected CuboidRegion region;
 
     public CuboidRegionSelector(LocalWorld world) {
@@ -63,8 +62,8 @@ public class CuboidRegionSelector implements RegionSelector, CUIRegion {
                 return;
             }
 
-            pos1 = oldRegion.getMinimumPoint().toBlockVector();
-            pos2 = oldRegion.getMaximumPoint().toBlockVector();
+            pos1 = oldRegion.getMinimumPoint();
+            pos2 = oldRegion.getMaximumPoint();
         }
 
         region.setPos1(pos1);
@@ -76,7 +75,7 @@ public class CuboidRegionSelector implements RegionSelector, CUIRegion {
             return false;
         }
 
-        pos1 = pos.toBlockVector();
+        pos1 = pos;
         region.setPos1(pos1);
         return true;
     }
@@ -86,7 +85,7 @@ public class CuboidRegionSelector implements RegionSelector, CUIRegion {
             return false;
         }
 
-        pos2 = pos.toBlockVector();
+        pos2 = pos;
         region.setPos2(pos2);
         return true;
     }
@@ -121,7 +120,7 @@ public class CuboidRegionSelector implements RegionSelector, CUIRegion {
         }
     }
 
-    public BlockVector getPrimaryPosition() throws IncompleteRegionException {
+    public Vector getPrimaryPosition() throws IncompleteRegionException {
         if (pos1 == null) {
             throw new IncompleteRegionException();
         }
@@ -146,8 +145,8 @@ public class CuboidRegionSelector implements RegionSelector, CUIRegion {
     }
 
     public void learnChanges() {
-        pos1 = region.getPos1().toBlockVector();
-        pos2 = region.getPos2().toBlockVector();
+        pos1 = region.getPos1();
+        pos2 = region.getPos2();
     }
 
     public void clear() {

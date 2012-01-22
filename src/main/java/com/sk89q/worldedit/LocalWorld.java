@@ -24,8 +24,8 @@ import java.util.Random;
 import com.sk89q.worldedit.blocks.BaseBlock;
 import com.sk89q.worldedit.blocks.BaseItemStack;
 import com.sk89q.worldedit.blocks.BlockType;
-import com.sk89q.worldedit.math.BlockVector2D;
 import com.sk89q.worldedit.math.Vector;
+import com.sk89q.worldedit.math.Vector2D;
 import com.sk89q.worldedit.regions.Region;
 
 /**
@@ -369,10 +369,10 @@ public abstract class LocalWorld {
      * 
      * @param chunks the chunks to fix
      */
-    public void fixAfterFastMode(Iterable<BlockVector2D> chunks) {
+    public void fixAfterFastMode(Iterable<Vector2D> chunks) {
     }
 
-    public void fixLighting(Iterable<BlockVector2D> chunks) {
+    public void fixLighting(Iterable<Vector2D> chunks) {
     }
 
     /**

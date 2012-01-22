@@ -28,7 +28,6 @@ import com.sk89q.worldedit.LocalWorld;
 import com.sk89q.worldedit.cui.CUIRegion;
 import com.sk89q.worldedit.cui.SelectionEllipsoidPointEvent;
 import com.sk89q.worldedit.cui.SelectionPointEvent;
-import com.sk89q.worldedit.math.BlockVector;
 import com.sk89q.worldedit.math.Vector;
 
 /**
@@ -61,8 +60,8 @@ public class EllipsoidRegionSelector implements RegionSelector, CUIRegion {
                 return;
             }
 
-            BlockVector pos1 = oldRegion.getMinimumPoint().toBlockVector();
-            BlockVector pos2 = oldRegion.getMaximumPoint().toBlockVector();
+            Vector pos1 = oldRegion.getMinimumPoint();
+            Vector pos2 = oldRegion.getMaximumPoint();
 
             Vector center = pos1.add(pos2).divide(2).floor();
             region.setCenter(center);
@@ -75,7 +74,7 @@ public class EllipsoidRegionSelector implements RegionSelector, CUIRegion {
             return false;
         }
 
-        region.setCenter(pos.toBlockVector());
+        region.setCenter(pos);
         region.setRadius(new Vector());
         return true;
     }
@@ -182,7 +181,7 @@ public class EllipsoidRegionSelector implements RegionSelector, CUIRegion {
     }
 
     @Override
-    public BlockVector getPrimaryPosition() throws IncompleteRegionException {
-        return region.getCenter().toBlockVector();
+    public Vector getPrimaryPosition() throws IncompleteRegionException {
+        return region.getCenter();
     }
 }

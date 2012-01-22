@@ -75,7 +75,7 @@ public class SelectionCommands {
                 return;
             }
         } else {
-            pos = player.getBlockIn();
+            pos = player.getBlockIn().getPosition();
         }
 
         if (!session.getRegionSelector(player.getWorld()).selectPrimary(pos)) {
@@ -110,7 +110,7 @@ public class SelectionCommands {
                 return;
             }
         } else {
-            pos = player.getBlockIn();
+            pos = player.getBlockIn().getPosition();
         }
 
         if (!session.getRegionSelector(player.getWorld()).selectSecondary(pos)) {
@@ -132,8 +132,8 @@ public class SelectionCommands {
     @CommandPermissions("worldedit.selection.hpos")
     public void hpos1(CommandContext args, LocalSession session, LocalPlayer player,
                       EditSession editSession) throws WorldEditException {
-        
-        Vector pos = player.getBlockTrace(300);
+
+        Vector pos = player.getBlockTrace(300).getPosition(); // TODO: de-hardcode
 
         if (pos != null) {
             if (!session.getRegionSelector(player.getWorld())
@@ -159,8 +159,8 @@ public class SelectionCommands {
     @CommandPermissions("worldedit.selection.hpos")
     public void hpos2(CommandContext args, LocalSession session, LocalPlayer player,
                       EditSession editSession) throws WorldEditException {
-        
-        Vector pos = player.getBlockTrace(300);
+
+        Vector pos = player.getBlockTrace(300).getPosition(); // TODO: de-hardcode
 
         if (pos != null) {
             if (!session.getRegionSelector(player.getWorld())
@@ -207,7 +207,7 @@ public class SelectionCommands {
                     + min2D.getBlockX() + ", " + min2D.getBlockZ() + ") - ("
                     + max2D.getBlockX() + ", " + max2D.getBlockZ() + ")");
         } else {
-            final Vector2D min2D = ChunkStore.toChunk(player.getBlockIn());
+            final Vector2D min2D = ChunkStore.toChunk(player.getBlockIn().getPosition());
 
             min = new Vector(min2D.getBlockX() * 16, 0, min2D.getBlockZ() * 16);
             max = min.add(15, player.getWorld().getMaxY(), 15);

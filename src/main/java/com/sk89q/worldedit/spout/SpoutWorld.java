@@ -24,8 +24,8 @@ import com.sk89q.worldedit.EntityType;
 import com.sk89q.worldedit.LocalWorld;
 import com.sk89q.worldedit.blocks.BaseBlock;
 import com.sk89q.worldedit.blocks.BaseItemStack;
-import com.sk89q.worldedit.math.BlockVector2D;
 import com.sk89q.worldedit.math.Vector;
+import com.sk89q.worldedit.math.Vector2D;
 import com.sk89q.worldedit.regions.Region;
 
 import org.spout.api.geo.World;
@@ -721,8 +721,8 @@ public class SpoutWorld extends LocalWorld {
     }
 
     @Override
-    public void fixAfterFastMode(Iterable<BlockVector2D> chunks) {
-        /*for (BlockVector2D chunkPos : chunks) {
+    public void fixAfterFastMode(Iterable<Vector2D> chunks) {
+        /*for (Vector2D chunkPos : chunks) {
             world.refreshChunk(chunkPos.getBlockX(), chunkPos.getBlockZ());
         }*/
     }

@@ -19,7 +19,6 @@
 
 package com.sk89q.worldedit.bukkit;
 
-import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import com.sk89q.util.StringUtil;
@@ -52,7 +51,7 @@ public class BukkitPlayer extends LocalPlayer {
 
     @Override
     public WorldVector getPosition() {
-        Location loc = player.getLocation();
+        org.bukkit.Location loc = player.getLocation();
         return new WorldVector(BukkitUtil.getLocalWorld(loc.getWorld()),
                 loc.getX(), loc.getY(), loc.getZ());
     }
@@ -102,7 +101,7 @@ public class BukkitPlayer extends LocalPlayer {
 
     @Override
     public void setPosition(Vector pos, float pitch, float yaw) {
-        player.teleport(new Location(player.getWorld(), pos.getX(), pos.getY(),
+        player.teleport(new org.bukkit.Location(player.getWorld(), pos.getX(), pos.getY(),
                 pos.getZ(), yaw, pitch));
     }
 

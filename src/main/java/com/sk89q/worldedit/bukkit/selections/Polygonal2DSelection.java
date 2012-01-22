@@ -25,7 +25,7 @@ import java.util.List;
 import com.sk89q.worldedit.LocalWorld;
 import org.bukkit.World;
 import com.sk89q.worldedit.bukkit.BukkitUtil;
-import com.sk89q.worldedit.math.BlockVector2D;
+import com.sk89q.worldedit.math.Vector2D;
 import com.sk89q.worldedit.regions.*;
 
 public class Polygonal2DSelection extends RegionSelection {
@@ -37,7 +37,7 @@ public class Polygonal2DSelection extends RegionSelection {
         this.poly2d = region;
     }
 
-    public Polygonal2DSelection(World world, List<BlockVector2D> points, int minY, int maxY) {
+    public Polygonal2DSelection(World world, List<Vector2D> points, int minY, int maxY) {
         super(world);
         LocalWorld lWorld = BukkitUtil.getLocalWorld(world);
 
@@ -56,7 +56,7 @@ public class Polygonal2DSelection extends RegionSelection {
         setRegion(poly2d);
     }
 
-    public List<BlockVector2D> getNativePoints() {
+    public List<Vector2D> getNativePoints() {
         return Collections.unmodifiableList(poly2d.getPoints());
     }
 }

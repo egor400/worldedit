@@ -25,7 +25,6 @@ import java.util.HashMap;
 import com.sk89q.jnbt.*;
 import com.sk89q.worldedit.*;
 import com.sk89q.worldedit.blocks.*;
-import com.sk89q.worldedit.math.BlockVector;
 import com.sk89q.worldedit.math.Vector;
 
 /**
@@ -40,7 +39,7 @@ public class Chunk {
     private int rootX;
     private int rootZ;
 
-    private Map<BlockVector, Map<String,Tag>> tileEntities;
+    private Map<Vector, Map<String,Tag>> tileEntities;
     private LocalWorld world;
 
     /**
@@ -129,7 +128,7 @@ public class Chunk {
                 rootTag.getValue(), "TileEntities", ListTag.class)
                 .getValue();
 
-        tileEntities = new HashMap<BlockVector, Map<String, Tag>>();
+        tileEntities = new HashMap<Vector, Map<String, Tag>>();
 
         for (Tag tag : tags) {
             if (!(tag instanceof CompoundTag)) {
@@ -162,7 +161,7 @@ public class Chunk {
                 values.put(entry.getKey(), entry.getValue());
             }
 
-            BlockVector vec = new BlockVector(x, y, z);
+            Vector vec = new Vector(x, y, z);
             tileEntities.put(vec, values);
         }
     }
@@ -181,7 +180,7 @@ public class Chunk {
             populateTileEntities();
         }
 
-        return tileEntities.get(new BlockVector(pos));
+        return tileEntities.get(new Vector(pos));
     }
 
     /**

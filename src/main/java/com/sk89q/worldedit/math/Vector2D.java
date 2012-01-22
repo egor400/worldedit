@@ -555,15 +555,6 @@ public class Vector2D {
     }
 
     /**
-     * Gets a BlockVector version.
-     *
-     * @return BlockVector
-     */
-    public BlockVector2D toBlockVector2D() {
-        return new BlockVector2D(this);
-    }
-
-    /**
      * Checks if another object is equivalent.
      *
      * @param obj

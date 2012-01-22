@@ -22,7 +22,6 @@ package com.sk89q.worldedit.data;
 import java.io.IOException;
 import com.sk89q.jnbt.*;
 import com.sk89q.worldedit.*;
-import com.sk89q.worldedit.math.BlockVector2D;
 import com.sk89q.worldedit.math.Vector;
 import com.sk89q.worldedit.math.Vector2D;
 
@@ -38,11 +37,11 @@ public abstract class ChunkStore {
      * @param pos
      * @return
      */
-    public static BlockVector2D toChunk(Vector pos) {
+    public static Vector2D toChunk(Vector pos) {
         int chunkX = (int) Math.floor(pos.getBlockX() / 16.0);
         int chunkZ = (int) Math.floor(pos.getBlockZ() / 16.0);
 
-        return new BlockVector2D(chunkX, chunkZ);
+        return new Vector2D(chunkX, chunkZ);
     }
 
     /**

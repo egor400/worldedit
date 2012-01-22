@@ -22,7 +22,6 @@ package com.sk89q.worldedit.regions;
 import java.util.Iterator;
 
 import com.sk89q.worldedit.LocalWorld;
-import com.sk89q.worldedit.math.BlockVector;
 import com.sk89q.worldedit.math.Vector;
 
 public abstract class AbstractRegion implements Region {
@@ -40,7 +39,7 @@ public abstract class AbstractRegion implements Region {
      *
      * @return iterator of points inside the region
      */
-    public Iterator<BlockVector> iterator() {
+    public Iterator<Vector> iterator() {
         return new RegionIterator(this);
     }
 

@@ -45,7 +45,7 @@ public class TreePlanter implements BlockTool {
         EditSession editSession = session.createEditSession(player);
 
         try {
-            if (!gen.generate(editSession, clicked.add(0, 1, 0))) {
+            if (!gen.generate(editSession, clicked.getPosition().add(0, 1, 0))) {
                 player.printError("A tree can't go there.");
             }
         } catch (MaxChangedBlocksException e) {

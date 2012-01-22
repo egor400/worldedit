@@ -21,10 +21,9 @@ package com.sk89q.worldedit.regions;
 
 import java.util.Iterator;
 
-import com.sk89q.worldedit.math.BlockVector;
 import com.sk89q.worldedit.math.Vector;
 
-public class RegionIterator implements Iterator<BlockVector> {
+public class RegionIterator implements Iterator<Vector> {
     private final Region region;
     private final int maxX;
     private final int maxY;
@@ -55,15 +54,15 @@ public class RegionIterator implements Iterator<BlockVector> {
     }
 
     private void forward() {
-        while (hasNext() && !region.contains(new BlockVector(nextX, nextY, nextZ))) {
+        while (hasNext() && !region.contains(new Vector(nextX, nextY, nextZ))) {
             forwardOne();
         }
     }
 
-    public BlockVector next() {
+    public Vector next() {
         if (!hasNext()) throw new java.util.NoSuchElementException();
 
-        BlockVector answer = new BlockVector(nextX, nextY, nextZ);
+        Vector answer = new Vector(nextX, nextY, nextZ);
 
         forwardOne();
         forward();

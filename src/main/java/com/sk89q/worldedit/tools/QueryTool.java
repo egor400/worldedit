@@ -21,6 +21,7 @@ package com.sk89q.worldedit.tools;
 
 import com.sk89q.worldedit.*;
 import com.sk89q.worldedit.blocks.*;
+import com.sk89q.worldedit.math.Vector;
 import com.sk89q.worldedit.math.WorldVector;
 
 /**
@@ -38,14 +39,16 @@ public class QueryTool implements BlockTool {
             LocalPlayer player, LocalSession session, WorldVector clicked) {
 
         LocalWorld world = clicked.getWorld();
-        BaseBlock block = (new EditSession(world, 0)).rawGetBlock(clicked);
+        final Vector position = clicked.getPosition();
+
+        BaseBlock block = (new EditSession(world, 0)).rawGetBlock(position);
         BlockType type = BlockType.fromID(block.getType());
 
         player.print("\u00A79@" + clicked + ": " + "\u00A7e"
                 + "#" + block.getType() + "\u00A77" + " ("
                 + (type == null ? "Unknown" : type.getName()) + ") "
                 + "\u00A7f"
-                + "[" + block.getData() + "]" + " (" + world.getBlockLightLevel(clicked) + "/" + world.getBlockLightLevel(clicked.add(0, 1, 0)) + ")");
+                + "[" + block.getData() + "]" + " (" + world.getBlockLightLevel(position) + "/" + world.getBlockLightLevel(position.add(0, 1, 0)) + ")");
 
         if (block instanceof MobSpawnerBlock) {
             player.printRaw("\u00A7e" + "Mob Type: "

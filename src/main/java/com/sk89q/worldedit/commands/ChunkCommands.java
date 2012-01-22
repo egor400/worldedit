@@ -57,7 +57,7 @@ public class ChunkCommands {
     public void chunkInfo(CommandContext args, LocalSession session, LocalPlayer player,
             EditSession editSession) throws WorldEditException {
         
-        Vector pos = player.getBlockIn();
+        Vector pos = player.getBlockIn().getPosition();
         int chunkX = (int) Math.floor(pos.getBlockX() / 16.0);
         int chunkZ = (int) Math.floor(pos.getBlockZ() / 16.0);
 

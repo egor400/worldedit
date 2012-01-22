@@ -147,7 +147,7 @@ public class WorldEdit {
                     }
                     msg += ": " + StringUtil.joinString(args, " ");
                     if (logMode != null && player.isPlayer()) {
-                        Vector position = player.getPosition();
+                        Vector position = player.getPosition().getPosition();
                         final LocalSession session = getSession(player);
                         switch (logMode) {
                         case PLACEMENT:
@@ -1160,8 +1160,8 @@ public class WorldEdit {
             }
 
             RegionSelector selector = session.getRegionSelector(player.getWorld());
-            if (selector.selectSecondary(clicked)) {
-                selector.explainSecondarySelection(player, session, clicked);
+            if (selector.selectSecondary(clicked.getPosition())) {
+                selector.explainSecondarySelection(player, session, clicked.getPosition());
             }
 
             return true;
@@ -1198,8 +1198,8 @@ public class WorldEdit {
             }
 
             RegionSelector selector = session.getRegionSelector(player.getWorld());
-            if (selector.selectPrimary(clicked)) {
-                selector.explainPrimarySelection(player, session, clicked);
+            if (selector.selectPrimary(clicked.getPosition())) {
+                selector.explainPrimarySelection(player, session, clicked.getPosition());
             }
 
             return true;

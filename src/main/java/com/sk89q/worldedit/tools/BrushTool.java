@@ -25,7 +25,7 @@ import com.sk89q.worldedit.blocks.BaseBlock;
 import com.sk89q.worldedit.blocks.BlockID;
 import com.sk89q.worldedit.masks.CombinedMask;
 import com.sk89q.worldedit.masks.Mask;
-import com.sk89q.worldedit.math.WorldVector;
+import com.sk89q.worldedit.math.Vector;
 import com.sk89q.worldedit.patterns.Pattern;
 import com.sk89q.worldedit.patterns.SingleBlockPattern;
 import com.sk89q.worldedit.tools.brushes.Brush;
@@ -167,8 +167,7 @@ public class BrushTool implements TraceTool {
      */
     public boolean actPrimary(ServerInterface server, LocalConfiguration config,
             LocalPlayer player, LocalSession session) {
-        WorldVector target = null;
-        target = player.getBlockTrace(getRange(), true);
+        Vector target = player.getBlockTrace(getRange(), true).getPosition();
 
         if (target == null) {
             player.printError("No block in sight!");

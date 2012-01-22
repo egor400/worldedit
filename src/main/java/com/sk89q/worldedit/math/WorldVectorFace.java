@@ -24,11 +24,13 @@ import com.sk89q.worldedit.LocalWorld;
 /**
  * A WorldVector that emphasizes one side of the block
  */
-public class WorldVectorFace extends WorldVector {
+public class WorldVectorFace {
+    private final WorldVector location;
+
     /**
      * Represents the side.
      */
-    private VectorFace face;
+    private final VectorFace face;
 
     /**
      * Construct the Vector object.
@@ -40,36 +42,7 @@ public class WorldVectorFace extends WorldVector {
      * @param face
      */
     public WorldVectorFace(LocalWorld world, double x, double y, double z, VectorFace face) {
-        super(world, x, y, z);
-        this.face = face;
-    }
-
-    /**
-     * Construct the Vector object.
-     *
-     * @param world
-     * @param x
-     * @param y
-     * @param z
-     * @param face
-     */
-    public WorldVectorFace(LocalWorld world, int x, int y, int z, VectorFace face) {
-        super(world, x, y, z);
-        this.face = face;
-    }
-
-    /**
-     * Construct the Vector object.
-     *
-     * @param world
-     * @param x
-     * @param y
-     * @param z
-     * @param face
-     */
-    public WorldVectorFace(LocalWorld world, float x, float y, float z, VectorFace face) {
-        super(world, x, y, z);
-        this.face = face;
+        this(world, new Vector(x, y, z), face);
     }
 
     /**
@@ -80,7 +53,7 @@ public class WorldVectorFace extends WorldVector {
      * @param face
      */
     public WorldVectorFace(LocalWorld world, Vector pt, VectorFace face) {
-        super(world, pt);
+        this.location = new WorldVector(world, pt);
         this.face = face;
     }
 
@@ -91,8 +64,16 @@ public class WorldVectorFace extends WorldVector {
      * @param face
      */
     public WorldVectorFace(LocalWorld world, VectorFace face) {
-        super(world);
-        this.face = face;
+        this(world, 0, 0, 0, face);
+    }
+
+    /**
+     * Get the location.
+     *
+     * @return
+     */
+    public WorldVector getLocation() {
+        return location;
     }
 
     /**
@@ -109,11 +90,8 @@ public class WorldVectorFace extends WorldVector {
      *
      * @return
      */
-    public WorldVector getFaceVector() {
-        return new WorldVector(getWorld(),
-                               getBlockX() - face.getModX(),
-                               getBlockY() - face.getModY(),
-                               getBlockZ() - face.getModZ());
+    public WorldVector getAdjacentLocation() {
+        return new WorldVector(location.getWorld(), location.getPosition().subtract(face.getMod()));
     }
 
     /**
@@ -146,5 +124,4 @@ public class WorldVectorFace extends WorldVector {
         // construct new vector
         return new WorldVectorFace(world, x1, y1, z1, VectorFace.fromMods(modX, modY, modZ));
     }
-
 }

@@ -19,7 +19,6 @@
 
 package com.sk89q.util.yaml;
 
-import com.sk89q.worldedit.math.BlockVector2D;
 import com.sk89q.worldedit.math.Vector;
 import com.sk89q.worldedit.math.Vector2D;
 
@@ -600,37 +599,6 @@ public class YAMLNode {
             }
 
             list.add(new Vector2D(x, z));
-        }
-
-        return list;
-    }
-
-    /**
-     * Gets a list of 2D vectors. Non-valid entries will not be in the list.
-     * There will be no null slots. If the list is not defined, the
-     * default will be returned. 'null' can be passed for the default
-     * and an empty list will be returned instead. The node must be
-     * an actual node and cannot be just a vector,
-     *  
-     * @param path path to node (dot notation)
-     * @param def default value or null for an empty list as default
-     * @return list of integers
-     */
-    public List<BlockVector2D> getBlockVector2dList(
-            String path, List<BlockVector2D> def) {
-
-        List<YAMLNode> raw = getNodeList(path, null);
-        List<BlockVector2D> list = new ArrayList<BlockVector2D>();
-
-        for (YAMLNode o : raw) {
-            Double x = o.getDouble("x");
-            Double z = o.getDouble("z");
-
-            if (x == null || z == null) {
-                continue;
-            }
-
-            list.add(new BlockVector2D(x, z));
         }
 
         return list;

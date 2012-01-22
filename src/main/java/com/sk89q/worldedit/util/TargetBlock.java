@@ -27,7 +27,7 @@ import com.sk89q.worldedit.LocalPlayer;
 import com.sk89q.worldedit.LocalWorld;
 import com.sk89q.worldedit.blocks.BlockID;
 import com.sk89q.worldedit.blocks.BlockType;
-import com.sk89q.worldedit.math.BlockWorldVector;
+import com.sk89q.worldedit.math.WorldVector;
 import com.sk89q.worldedit.math.Vector;
 import com.sk89q.worldedit.math.WorldVectorFace;
 
@@ -56,7 +56,7 @@ public class TargetBlock {
      */
     public TargetBlock(LocalPlayer player) {
         this.world = player.getWorld();
-        this.setValues(player.getPosition(), player.getYaw(), player.getPitch(),
+        this.setValues(player.getPosition().getPosition(), player.getYaw(), player.getPitch(),
                 300, 1.65, 0.2);
     }
 
@@ -69,7 +69,7 @@ public class TargetBlock {
      */
     public TargetBlock(LocalPlayer player, int maxDistance, double checkDistance) {
         this.world = player.getWorld();
-        this.setValues(player.getPosition(), player.getYaw(), player.getPitch(),
+        this.setValues(player.getPosition().getPosition(), player.getYaw(), player.getPitch(),
                 maxDistance, 1.65, checkDistance);
     }
 
@@ -98,7 +98,7 @@ public class TargetBlock {
                             (h * Math.sin(Math.toRadians(xRotation))));
 
         targetPosDouble = loc.add(0, viewHeight, 0);
-        targetPos = targetPosDouble.toBlockPoint();
+        targetPos = targetPosDouble.floor();
         prevPos = targetPos;
     }
 
@@ -108,14 +108,15 @@ public class TargetBlock {
      * 
      * @return Block
      */
-    public BlockWorldVector getAnyTargetBlock() {
+    public WorldVector getAnyTargetBlock() {
         boolean searchForLastBlock = true;
-        BlockWorldVector lastBlock = null;
+        WorldVector lastBlock = null;
         while (getNextBlock() != null) {
-            if (world.getBlockType(getCurrentBlock()) == BlockID.AIR) {
+            if (world.getBlockType(getCurrentBlock().getPosition()) == BlockID.AIR) {
                 if (searchForLastBlock) {
                     lastBlock = getCurrentBlock();
-                    if (lastBlock.getBlockY() <= 0 || lastBlock.getBlockY() >= world.getMaxY()) {
+                    final Vector lastPosition = lastBlock.getPosition();
+                    if (lastPosition.getBlockY() <= 0 || lastPosition.getBlockY() >= world.getMaxY()) {
                         searchForLastBlock = false;
                     }
                 }
@@ -123,7 +124,7 @@ public class TargetBlock {
                 break;
             }
         }
-        BlockWorldVector currentBlock = getCurrentBlock();
+        WorldVector currentBlock = getCurrentBlock();
         return (currentBlock != null ? currentBlock : lastBlock);
     }
 
@@ -133,8 +134,8 @@ public class TargetBlock {
      * 
      * @return Block
      */
-    public BlockWorldVector getTargetBlock() {
-        while (getNextBlock() != null && world.getBlockType(getCurrentBlock()) == 0) ;
+    public WorldVector getTargetBlock() {
+        while (getNextBlock() != null && world.getBlockType(getCurrentBlock().getPosition()) == 0) ;
         return getCurrentBlock();
     }
 
@@ -144,8 +145,8 @@ public class TargetBlock {
      * 
      * @return Block
      */
-    public BlockWorldVector getSolidTargetBlock() {
-        while (getNextBlock() != null && BlockType.canPassThrough(world.getBlockType(getCurrentBlock()))) ;
+    public WorldVector getSolidTargetBlock() {
+        while (getNextBlock() != null && BlockType.canPassThrough(world.getBlockType(getCurrentBlock().getPosition()))) ;
         return getCurrentBlock();
     }
 
@@ -154,7 +155,7 @@ public class TargetBlock {
      * 
      * @return next block position
      */
-    public BlockWorldVector getNextBlock() {
+    public WorldVector getNextBlock() {
         prevPos = targetPos;
         do {
             curDistance += checkDistance;
@@ -162,7 +163,7 @@ public class TargetBlock {
             targetPosDouble = offset.add(targetPosDouble.getX(),
                                          targetPosDouble.getY(),
                                          targetPosDouble.getZ());
-            targetPos = targetPosDouble.toBlockPoint();
+            targetPos = targetPosDouble.floor();
         } while (curDistance <= maxDistance
                 && targetPos.getBlockX() == prevPos.getBlockX()
                 && targetPos.getBlockY() == prevPos.getBlockY()
@@ -172,7 +173,7 @@ public class TargetBlock {
             return null;
         }
 
-        return new BlockWorldVector(world, targetPos);
+        return new WorldVector(world, targetPos);
     }
 
     /**
@@ -180,11 +181,11 @@ public class TargetBlock {
      * 
      * @return block position
      */
-    public BlockWorldVector getCurrentBlock() {
+    public WorldVector getCurrentBlock() {
         if (curDistance > maxDistance) {
             return null;
         } else {
-            return new BlockWorldVector(world, targetPos);
+            return new WorldVector(world, targetPos);
         }
     }
 
@@ -193,17 +194,17 @@ public class TargetBlock {
      * 
      * @return block position
      */
-    public BlockWorldVector getPreviousBlock() {
-        return new BlockWorldVector(world, prevPos);
+    public WorldVector getPreviousBlock() {
+        return new WorldVector(world, prevPos);
     }
 
     public WorldVectorFace getAnyTargetBlockFace() {
         getAnyTargetBlock();
-        return WorldVectorFace.getWorldVectorFace(world, getCurrentBlock(), getPreviousBlock());
+        return WorldVectorFace.getWorldVectorFace(world, getCurrentBlock().getPosition(), getPreviousBlock().getPosition());
     }
 
     public WorldVectorFace getTargetBlockFace() {
         getAnyTargetBlock();
-        return WorldVectorFace.getWorldVectorFace(world, getCurrentBlock(), getPreviousBlock());
+        return WorldVectorFace.getWorldVectorFace(world, getCurrentBlock().getPosition(), getPreviousBlock().getPosition());
     }
 }

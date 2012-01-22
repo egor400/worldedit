@@ -20,8 +20,6 @@
 package com.sk89q.worldedit.spout;
 
 import com.sk89q.worldedit.LocalWorld;
-import com.sk89q.worldedit.math.BlockVector;
-import com.sk89q.worldedit.math.BlockWorldVector;
 import com.sk89q.worldedit.math.Vector;
 import com.sk89q.worldedit.math.WorldVector;
 
@@ -30,7 +28,6 @@ import org.spout.api.geo.World;
 import org.spout.api.geo.cuboid.Block;
 import org.spout.api.geo.discrete.Point;
 import org.spout.api.material.block.BlockFace;
-import org.spout.api.math.Vector3;
 import org.spout.api.player.Player;
 
 import java.util.HashMap;
@@ -51,20 +48,16 @@ public class SpoutUtil {
         return lw;
     }
 
-    public static BlockVector toVector(Block block) {
-        return new BlockVector(block.getX(), block.getY(), block.getZ());
+    public static Vector toVector(Block block) {
+        return new Vector(block.getX(), block.getY(), block.getZ());
     }
 
-    public static BlockVector toVector(BlockFace face) {
-        return toBlockVector(face.getOffset());
-    }
-    
-    public static BlockVector toBlockVector(Vector3 vector) {
-        return new BlockVector(vector.getX(), vector.getY(), vector.getZ());
+    public static Vector toVector(BlockFace face) {
+        return toVector(face.getOffset());
     }
 
-    public static BlockWorldVector toWorldVector(Block block) {
-        return new BlockWorldVector(getLocalWorld(block.getWorld()), block.getX(), block.getY(), block.getZ());
+    public static WorldVector toWorldVector(Block block) {
+        return new WorldVector(getLocalWorld(block.getWorld()), block.getX(), block.getY(), block.getZ());
     }
 
     public static Vector toVector(Point loc) {
@@ -75,8 +68,9 @@ public class SpoutUtil {
         return new Vector(vector.getX(), vector.getY(), vector.getZ());
     }
 
-    public static Point toPoint(WorldVector pt) {
-        return new Point(toWorld(pt), (float)pt.getX(), (float)pt.getY(), (float)pt.getZ());
+    public static Point toPoint(WorldVector location) {
+        final Vector position = location.getPosition();
+        return new Point(toWorld(location), (float)position.getX(), (float)position.getY(), (float)position.getZ());
     }
 
     public static Point toPoint(World world, Vector pt) {
@@ -96,8 +90,9 @@ public class SpoutUtil {
         return game.getPlayer(name, false);
     }
 
-    public static Block toBlock(BlockWorldVector pt) {
-        return toWorld(pt).getBlock(pt.getBlockX(), pt.getBlockY(), pt.getBlockZ());
+    public static Block toBlock(WorldVector location) {
+        final Vector position = location.getPosition();
+        return toWorld(location).getBlock(position.getBlockX(), position.getBlockY(), position.getBlockZ());
     }
 
     public static World toWorld(WorldVector pt) {

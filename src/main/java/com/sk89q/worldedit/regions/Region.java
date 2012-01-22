@@ -20,7 +20,6 @@
 package com.sk89q.worldedit.regions;
 
 import com.sk89q.worldedit.LocalWorld;
-import com.sk89q.worldedit.math.BlockVector;
 import com.sk89q.worldedit.math.Vector;
 import com.sk89q.worldedit.math.Vector2D;
 
@@ -30,7 +29,7 @@ import java.util.Set;
  *
  * @author sk89q
  */
-public interface Region extends Iterable<BlockVector> {
+public interface Region extends Iterable<Vector> {
     /**
      * Get the lower point of a region.
      *

@@ -21,7 +21,6 @@ package com.sk89q.worldedit.regions;
 
 import com.sk89q.worldedit.LocalWorld;
 import com.sk89q.worldedit.data.ChunkStore;
-import com.sk89q.worldedit.math.BlockVector;
 import com.sk89q.worldedit.math.Vector;
 import com.sk89q.worldedit.math.Vector2D;
 
@@ -335,8 +334,8 @@ public class CuboidRegion extends AbstractRegion {
      * @return iterator of points inside the region
      */
     @Override
-    public Iterator<BlockVector> iterator() {
-        return new Iterator<BlockVector>() {
+    public Iterator<Vector> iterator() {
+        return new Iterator<Vector>() {
             private Vector min = getMinimumPoint();
             private Vector max = getMaximumPoint();
             private int nextX = min.getBlockX();
@@ -347,9 +346,9 @@ public class CuboidRegion extends AbstractRegion {
                 return (nextX != Integer.MIN_VALUE);
             }
 
-            public BlockVector next() {
+            public Vector next() {
                 if (!hasNext()) throw new java.util.NoSuchElementException();
-                BlockVector answer = new BlockVector(nextX, nextY, nextZ);
+                Vector answer = new Vector(nextX, nextY, nextZ);
                 if (++nextX > max.getBlockX()) {
                     nextX = min.getBlockX();
                     if (++nextY > max.getBlockY()) {

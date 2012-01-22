@@ -21,6 +21,7 @@ package com.sk89q.worldedit.tools;
 
 import com.sk89q.worldedit.*;
 import com.sk89q.worldedit.blocks.BlockID;
+import com.sk89q.worldedit.math.Vector;
 import com.sk89q.worldedit.math.WorldVector;
 
 /**
@@ -37,20 +38,20 @@ public class SinglePickaxe implements BlockTool {
     public boolean actPrimary(ServerInterface server, LocalConfiguration config,
             LocalPlayer player, LocalSession session, WorldVector clicked) {
         LocalWorld world = clicked.getWorld();
-
-        final int blockType = world.getBlockType(clicked);
+        Vector position = clicked.getPosition();
+        final int blockType = world.getBlockType(position);
         if (blockType == BlockID.BEDROCK
                 && !player.canDestroyBedrock()) {
             return true;
         }
 
         if (config.superPickaxeDrop) {
-            world.simulateBlockMine(clicked);
+            world.simulateBlockMine(position);
         }
 
-        world.setBlockType(clicked, BlockID.AIR);
+        world.setBlockType(position, BlockID.AIR);
 
-        world.playEffect(clicked, 2001, blockType);
+        world.playEffect(position, 2001, blockType);
 
         return true;
     }

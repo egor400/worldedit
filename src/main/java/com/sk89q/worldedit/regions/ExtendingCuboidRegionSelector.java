@@ -21,7 +21,6 @@ package com.sk89q.worldedit.regions;
 
 import com.sk89q.worldedit.LocalPlayer;
 import com.sk89q.worldedit.LocalSession;
-import com.sk89q.worldedit.math.BlockVector;
 import com.sk89q.worldedit.math.Vector;
 
 /**
@@ -40,8 +39,8 @@ public class ExtendingCuboidRegionSelector extends CuboidRegionSelector {
             return;
         }
 
-        pos1 = region.getMinimumPoint().toBlockVector();
-        pos2 = region.getMaximumPoint().toBlockVector();
+        pos1 = region.getMinimumPoint();
+        pos2 = region.getMaximumPoint();
         region.setPos1(pos1);
         region.setPos2(pos2);
     }
@@ -52,7 +51,7 @@ public class ExtendingCuboidRegionSelector extends CuboidRegionSelector {
             return false;
         }
 
-        pos1 = pos2 = pos.toBlockVector();
+        pos1 = pos2 = pos;
         region.setPos1(pos1);
         region.setPos2(pos2);
         return true;
@@ -76,10 +75,10 @@ public class ExtendingCuboidRegionSelector extends CuboidRegionSelector {
         double y2 = Math.max(pos.getY(), pos2.getY());
         double z2 = Math.max(pos.getZ(), pos2.getZ());
 
-        final BlockVector o1 = pos1;
-        final BlockVector o2 = pos2;
-        pos1 = new BlockVector(x1, y1, z1);
-        pos2 = new BlockVector(x2, y2, z2);
+        final Vector o1 = pos1;
+        final Vector o2 = pos2;
+        pos1 = new Vector(x1, y1, z1);
+        pos2 = new Vector(x2, y2, z2);
         region.setPos1(pos1);
         region.setPos2(pos2);
 
