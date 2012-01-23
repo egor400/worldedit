@@ -289,8 +289,8 @@ public enum ItemType {
     EYE_OF_ENDER(ItemID.EYE_OF_ENDER, "Eye of Ender", "eyeofender", "endereye"),
     GLISTERING_MELON(ItemID.GLISTERING_MELON, "Glistering Melon", "glisteringmelon", "goldmelon"),
     SPAWN_EGG(ItemID.SPAWN_EGG, "Spawn Egg", "spawnegg", "spawn", "mobspawnegg"),
-    DISC_13(ItemID.DISC_13, "Music Disc - 13", "disc_13"),
-    DISC_CAT(ItemID.DISC_CAT, "Music Disc - Cat", "disc_cat"),
+    DISC_13(ItemID.DISC_13, "Music Disc - 13", "disc_13", "Gold Record", "goldrecord", "golddisc"),
+    DISC_CAT(ItemID.DISC_CAT, "Music Disc - Cat", "disc_cat", "Green Record", "greenrecord", "greenddisc"),
     DISC_BLOCKS(ItemID.DISC_BLOCKS, "Music Disc - blocks", "disc_blocks"),
     DISC_CHIRP(ItemID.DISC_CHIRP, "Music Disc - chirp", "disc_chirp"),
     DISC_FAR(ItemID.DISC_FAR, "Music Disc - far", "disc_far"),
@@ -299,11 +299,7 @@ public enum ItemType {
     DISC_STAL(ItemID.DISC_STAL, "Music Disc - stal", "disc_stal"),
     DISC_STRAD(ItemID.DISC_STRAD, "Music Disc - strad", "disc_strad"),
     DISC_WARD(ItemID.DISC_WARD, "Music Disc - ward", "disc_ward"),
-    DISC_11(ItemID.DISC_11, "Music Disc - 11", "disc_11"),
-
-    // deprecated
-    @Deprecated GOLD_RECORD(ItemID.GOLD_RECORD, "Gold Record", "goldrecord", "golddisc"),
-    @Deprecated GREEN_RECORD(ItemID.GREEN_RECORD, "Green Record", "greenrecord", "greenddisc");
+    DISC_11(ItemID.DISC_11, "Music Disc - 11", "disc_11");
 
     /**
      * Stores a map of the IDs for fast access.
