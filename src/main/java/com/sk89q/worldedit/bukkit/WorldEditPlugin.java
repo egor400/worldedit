@@ -58,10 +58,6 @@ public class WorldEditPlugin extends JavaPlugin {
      * Main WorldEdit instance.
      */
     private WorldEdit controller;
-    /**
-     * Deprecated API.
-     */
-    private WorldEditAPI api;
 
     /**
      * Holds the configuration for WorldEdit.
@@ -97,7 +93,6 @@ public class WorldEditPlugin extends JavaPlugin {
         // Setup interfaces
         server = new BukkitServerInterface(this, getServer());
         controller = new WorldEdit(server, config);
-        api = new WorldEditAPI(this);
 
         // Now we can register events!
         getServer().getPluginManager().registerEvents(new WorldEditListener(this), this);
@@ -261,16 +256,6 @@ public class WorldEditPlugin extends JavaPlugin {
         } finally {
             remember(player, editSession);
         }
-    }
-
-    /**
-     * Get the API.
-     * 
-     * @return
-     */
-    @Deprecated
-    public WorldEditAPI getAPI() {
-        return api;
     }
 
     /**

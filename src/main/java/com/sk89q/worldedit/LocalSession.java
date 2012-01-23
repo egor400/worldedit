@@ -194,17 +194,6 @@ public class LocalSession {
     }
 
     /**
-     * Get the region selector. This won't check worlds so make sure that
-     * this region selector isn't used blindly.
-     *
-     * @return position
-     */
-    @Deprecated
-    public RegionSelector getRegionSelector() {
-        return selector;
-    }
-
-    /**
      * Set the region selector.
      *
      * @param world
@@ -213,16 +202,6 @@ public class LocalSession {
     public void setRegionSelector(LocalWorld world, RegionSelector selector) {
         selector.getIncompleteRegion().setWorld(world);
         this.selector = selector;
-    }
-
-    /**
-     * Returns true if the region is fully defined.
-     *
-     * @return
-     */
-    @Deprecated
-    public boolean isRegionDefined() {
-        return selector.isDefined();
     }
 
     /**
@@ -236,17 +215,6 @@ public class LocalSession {
             return false;
         }
         return selector.isDefined();
-    }
-
-    /**
-     * Use <code>getSelection()</code>.
-     *
-     * @return region
-     * @throws IncompleteRegionException
-     */
-    @Deprecated
-    public Region getRegion() throws IncompleteRegionException {
-        return selector.getRegion();
     }
 
     /**

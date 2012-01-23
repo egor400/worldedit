@@ -1020,15 +1020,6 @@ public class WorldEdit {
      *
      * @param player
      */
-    @Deprecated
-    public void handleDisconnect(LocalPlayer player) {
-        forgetPlayer(player);
-    }
-
-    /**
-     *
-     * @param player
-     */
     public void markExpire(LocalPlayer player) {
         synchronized (sessions) {
             LocalSession session = sessions.get(player.getName());

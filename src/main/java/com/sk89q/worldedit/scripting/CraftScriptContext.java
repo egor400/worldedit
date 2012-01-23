@@ -201,25 +201,6 @@ public class CraftScriptContext extends CraftScriptEnvironment {
     }
 
     /**
-     * Gets the path to a file. This method will check to see if the filename
-     * has valid characters and has an extension. It also prevents directory
-     * traversal exploits by checking the root directory and the file directory.
-     * On success, a <code>java.io.File</code> object will be returned.
-     * 
-     * <p>Use this method if you need to read a file from a directory.</p>
-     * 
-     * @param folder sub-directory to look in
-     * @param filename filename (user-submitted)
-     * @return
-     * @throws FilenameException 
-     */
-    @Deprecated
-    public File getSafeFile(String folder, String filename) throws FilenameException {
-        File dir = controller.getWorkingDirectoryFile(folder);
-        return controller.getSafeOpenFile(player, dir, filename, null, (String[]) null);
-    }
-
-    /**
      * Gets the path to a file for opening. This method will check to see if the
      * filename has valid characters and has an extension. It also prevents
      * directory traversal exploits by checking the root directory and the file
