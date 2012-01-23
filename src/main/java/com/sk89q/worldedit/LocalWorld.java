@@ -274,31 +274,6 @@ public abstract class LocalWorld {
     }
 
     /**
-     * Kill mobs in an area, excluding pet wolves.
-     * 
-     * @param origin
-     * @param radius
-     * @return
-     */
-    @Deprecated
-    public int killMobs(Vector origin, int radius) {
-        return killMobs(origin, radius, false);
-    }
-
-    /**
-     * Kill mobs in an area.
-     * 
-     * @param origin
-     * @param radius -1 for all mobs
-     * @param flags various flags that determine what to kill
-     * @return
-     */
-    @Deprecated
-    public int killMobs(Vector origin, int radius, boolean killPets) {
-        return killMobs(origin, radius, killPets ? KillFlags.PETS : 0);
-    }
-
-    /**
      * Kill mobs in an area.
      * 
      * @param origin
@@ -306,9 +281,7 @@ public abstract class LocalWorld {
      * @param killflags
      * @return
      */
-    public int killMobs(Vector origin, double radius, int flags) {
-        return killMobs(origin, (int) radius, (flags & KillFlags.PETS) != 0);
-    }
+    public abstract int killMobs(Vector origin, double radius, int flags);
 
     /**
      * Remove entities in an area.
@@ -335,8 +308,7 @@ public abstract class LocalWorld {
      *
      * @param pt Position to check
      */
-    public void checkLoadedChunk(Vector pt) {
-    }
+    public abstract void checkLoadedChunk(Vector pt);
 
     /**
      * Compare if the other world is equal.
@@ -360,20 +332,16 @@ public abstract class LocalWorld {
      * 
      * @return
      */
-    public int getMaxY() {
-        return 127;
-    }
+    public abstract int getMaxY();
 
     /**
      * Does some post-processing. Should be called after using fast mode
      * 
      * @param chunks the chunks to fix
      */
-    public void fixAfterFastMode(Iterable<Vector2D> chunks) {
-    }
+    public abstract void fixAfterFastMode(Iterable<Vector2D> chunks);
 
-    public void fixLighting(Iterable<Vector2D> chunks) {
-    }
+    public abstract void fixLighting(Iterable<Vector2D> chunks);
 
     /**
      * Plays the minecraft effect with the given type and data at the given position.
@@ -382,9 +350,7 @@ public abstract class LocalWorld {
      * @param type
      * @param data
      */
-    public boolean playEffect(Vector position, int type, int data) {
-        return false;
-    }
+    public abstract boolean playEffect(Vector position, int type, int data);
 
     private class QueuedEffect implements Comparable<QueuedEffect> {
         private final Vector position;

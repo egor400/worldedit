@@ -760,4 +760,8 @@ public class BukkitWorld extends LocalWorld {
 
         return true;
     }
+
+    @Override
+    public void fixLighting(Iterable<Vector2D> chunks) {
+    }
 }
