@@ -34,19 +34,6 @@ public abstract class BlockBag {
      * @param id
      * @param data 
      * @throws BlockBagException
-     * @deprecated Use {@link BlockBag#storeDroppedBlock(int, int)} instead
-     */
-    @Deprecated
-    public void storeDroppedBlock(int id) throws BlockBagException {
-        storeDroppedBlock(id, 0);
-    }
-
-    /**
-     * Stores a block as if it was mined.
-     * 
-     * @param id
-     * @param data 
-     * @throws BlockBagException
      */
     public void storeDroppedBlock(int id, int data) throws BlockBagException {
         BaseItem dropped = BlockType.getBlockBagItem(id, data);
@@ -54,18 +41,6 @@ public abstract class BlockBag {
         if (dropped.getType() == BlockID.AIR) return;
 
         storeItem(dropped);
-    }
-
-    /**
-     * Sets a block as if it was placed by hand.
-     *
-     * @param id
-     * @throws BlockBagException
-     * @deprecated Use {@link #fetchPlacedBlock(int,int)} instead
-     */
-    @Deprecated
-    public void fetchPlacedBlock(int id) throws BlockBagException {
-        fetchPlacedBlock(id, 0);
     }
 
     /**
@@ -102,7 +77,7 @@ public abstract class BlockBag {
                 return;
 
             default:
-                fetchBlock(id);
+                fetchItem(new BaseItem(id, (short) data));
                 break;
             }
 
@@ -118,38 +93,12 @@ public abstract class BlockBag {
     /**
      * Get a block.
      *
-     * Either this method or fetchItem needs to be overridden
-     *
-     * @param id
-     * @throws BlockBagException 
-     */
-    public void fetchBlock(int id) throws BlockBagException {
-        fetchItem(new BaseItem(id));
-    }
-
-    /**
-     * Get a block.
-     *
      * Either this method or fetchBlock needs to be overridden
      *
      * @param item
      * @throws BlockBagException 
      */
-    public void fetchItem(BaseItem item) throws BlockBagException {
-        fetchBlock(item.getType());
-    }
-
-    /**
-     * Store a block.
-     * 
-     * Either this method or storeItem needs to be overridden
-     * 
-     * @param id
-     * @throws BlockBagException 
-     */
-    public void storeBlock(int id) throws BlockBagException {
-        storeItem(new BaseItem(id));
-    }
+    public abstract void fetchItem(BaseItem item) throws BlockBagException;
 
     /**
      * Store a block.
@@ -159,9 +108,7 @@ public abstract class BlockBag {
      * @param item
      * @throws BlockBagException 
      */
-    public void storeItem(BaseItem item) throws BlockBagException {
-        storeBlock(item.getType());
-    }
+    public abstract void storeItem(BaseItem item) throws BlockBagException;
 
     /**
      * Checks to see if a block exists without removing it.
@@ -169,10 +116,10 @@ public abstract class BlockBag {
      * @param id
      * @return whether the block exists
      */
-    public boolean peekBlock(int id) {
+    public boolean peekBlock(BaseItem item) {
         try {
-            fetchBlock(id);
-            storeBlock(id);
+            fetchItem(item);
+            storeItem(item);
             return true;
         } catch (BlockBagException e) {
             return false;
