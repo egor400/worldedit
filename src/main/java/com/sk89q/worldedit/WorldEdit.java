@@ -40,7 +40,7 @@ import javax.script.ScriptException;
 import com.sk89q.minecraft.util.commands.*;
 
 import com.sk89q.util.StringUtil;
-import com.sk89q.worldedit.CuboidClipboard.FlipDirection;
+import com.sk89q.worldedit.CuboidClipboard.MirrorDirection;
 import com.sk89q.worldedit.bags.BlockBag;
 import com.sk89q.worldedit.blocks.*;
 import com.sk89q.worldedit.commands.*;
@@ -912,29 +912,29 @@ public class WorldEdit {
     }
 
     /**
-     * Get the flip direction for a player's direction.
+     * Get the mirror direction for a player's direction.
      *
      * @param player
      * @param dirStr 
      * @return
      * @throws UnknownDirectionException 
      */
-    public FlipDirection getFlipDirection(LocalPlayer player, String dirStr)
+    public MirrorDirection getMirrorDirection(LocalPlayer player, String dirStr)
             throws UnknownDirectionException {
 
         final PlayerDirection dir = getPlayerDirection(player, dirStr);
         switch (dir) {
         case WEST:
         case EAST:
-            return FlipDirection.WEST_EAST;
+            return MirrorDirection.WEST_EAST;
 
         case NORTH:
         case SOUTH:
-            return FlipDirection.NORTH_SOUTH;
+            return MirrorDirection.NORTH_SOUTH;
 
         case UP:
         case DOWN:
-            return FlipDirection.UP_DOWN;
+            return MirrorDirection.UP_DOWN;
 
         default:
             throw new UnknownDirectionException(dir.name());

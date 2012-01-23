@@ -19,7 +19,7 @@
 
 package com.sk89q.worldedit.blocks;
 
-import com.sk89q.worldedit.CuboidClipboard.FlipDirection;
+import com.sk89q.worldedit.CuboidClipboard.MirrorDirection;
 
 /**
  * Block data related classes.
@@ -343,40 +343,40 @@ public final class BlockData {
     }
 
     /**
-     * Flip a block's data value.
+     * Rotates a block's data value 180 degrees.
      * 
      * @param type
      * @param data
      * @return
      */
-    public static int flip(int type, int data) {
+    public static int rotate180(int type, int data) {
         return rotate90(type, rotate90(type, data));
     }
 
     /**
-     * Flip a block's data value.
+     * Mirrors a block's data value.
      * 
      * @param type
      * @param data
      * @param direction
      * @return
      */
-    public static int flip(int type, int data, FlipDirection direction) {
-        int flipX = 0;
-        int flipY = 0;
-        int flipZ = 0;
+    public static int mirror(int type, int data, MirrorDirection direction) {
+        int mirrorX = 0;
+        int mirrorY = 0;
+        int mirrorZ = 0;
 
         switch (direction) {
         case NORTH_SOUTH:
-            flipX = 1;
+            mirrorX = 1;
             break;
 
         case WEST_EAST:
-            flipZ = 1;
+            mirrorZ = 1;
             break;
 
         case UP_DOWN:
-            flipY = 1;
+            mirrorY = 1;
             break;
         }
 
@@ -390,19 +390,19 @@ public final class BlockData {
         case BlockID.LEVER:
         case BlockID.STONE_BUTTON:
             switch (data & ~0x8) {
-            case 1: return data + flipX;
-            case 2: return data - flipX;
-            case 3: return data + flipZ;
-            case 4: return data - flipZ;
+            case 1: return data + mirrorX;
+            case 2: return data - mirrorX;
+            case 3: return data + mirrorZ;
+            case 4: return data - mirrorZ;
             }
             break;
 
         case BlockID.MINECART_TRACKS:
             switch (data) {
-            case 6: return data + flipX + flipZ * 3;
-            case 7: return data - flipX + flipZ;
-            case 8: return data + flipX - flipZ;
-            case 9: return data - flipX - flipZ * 3;
+            case 6: return data + mirrorX + mirrorZ * 3;
+            case 7: return data - mirrorX + mirrorZ;
+            case 8: return data + mirrorX - mirrorZ;
+            case 9: return data - mirrorX - mirrorZ * 3;
             }
             /* FALL-THROUGH */
 
@@ -414,10 +414,10 @@ public final class BlockData {
                 return data;
             case 2:
             case 3:
-                return data ^ flipX;
+                return data ^ mirrorX;
             case 4:
             case 5:
-                return data ^ flipZ;
+                return data ^ mirrorZ;
             }
             break;
 
@@ -429,21 +429,21 @@ public final class BlockData {
             switch (data) {
             case 0:
             case 1:
-                return data ^ flipX;
+                return data ^ mirrorX;
             case 2:
             case 3:
-                return data ^ flipZ;
+                return data ^ mirrorZ;
             }
             break;
 
         case BlockID.WOODEN_DOOR:
         case BlockID.IRON_DOOR:
-            data ^= flipY << 3;
+            data ^= mirrorY << 3;
             switch (data & 0x3) {
-            case 0: return data + flipX + flipZ * 3;
-            case 1: return data - flipX + flipZ;
-            case 2: return data + flipX - flipZ;
-            case 3: return data - flipX - flipZ * 3;
+            case 0: return data + mirrorX + mirrorZ * 3;
+            case 1: return data - mirrorX + mirrorZ;
+            case 2: return data + mirrorX - mirrorZ;
+            case 3: return data - mirrorX - mirrorZ * 3;
             }
             break;
 
@@ -465,10 +465,10 @@ public final class BlockData {
             switch (data) {
             case 2:
             case 3:
-                return data ^ flipZ;
+                return data ^ mirrorZ;
             case 4:
             case 5:
-                return data ^ flipX;
+                return data ^ mirrorX;
             }
             break;
 
@@ -482,10 +482,10 @@ public final class BlockData {
             switch (data & 0x3) {
             case 0:
             case 2:
-                return data ^ (flipZ << 1);
+                return data ^ (mirrorZ << 1);
             case 1:
             case 3:
-                return data ^ (flipX << 1);
+                return data ^ (mirrorX << 1);
             }
             break;
 
@@ -493,10 +493,10 @@ public final class BlockData {
             switch (data & 0x3) {
             case 0:
             case 1:
-                return data ^ flipZ;
+                return data ^ mirrorZ;
             case 2:
             case 3:
-                return data ^ flipX;
+                return data ^ mirrorX;
             }
             break;
 
@@ -506,13 +506,13 @@ public final class BlockData {
             switch (data & ~0x8) {
             case 0:
             case 1:
-                return data ^ flipY;
+                return data ^ mirrorY;
             case 2:
             case 3:
-                return data ^ flipZ;
+                return data ^ mirrorZ;
             case 4:
             case 5:
-                return data ^ flipX;
+                return data ^ mirrorX;
             }
             break;
 
@@ -522,23 +522,23 @@ public final class BlockData {
             case 1:
             case 4:
             case 7:
-                data += flipX * 2;
+                data += mirrorX * 2;
                 break;
             case 3:
             case 6:
             case 9:
-                data -= flipX * 2;
+                data -= mirrorX * 2;
                 break;
             }
             switch (data) {
             case 1:
             case 2:
             case 3:
-                return data + flipZ * 6;
+                return data + mirrorZ * 6;
             case 7:
             case 8:
             case 9:
-                return data - flipZ * 6;
+                return data - mirrorZ * 6;
             }
             break;
 
@@ -565,10 +565,10 @@ public final class BlockData {
             switch (data & 0x3) {
             case 0:
             case 2:
-                return data ^ flipZ * 2;
+                return data ^ mirrorZ * 2;
             case 1:
             case 3:
-                return data ^ flipX * 2;
+                return data ^ mirrorX * 2;
             }
             break;
 

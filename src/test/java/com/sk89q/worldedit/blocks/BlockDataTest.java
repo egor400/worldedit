@@ -23,7 +23,7 @@ import java.util.TreeSet;
 
 import org.junit.*;
 
-import com.sk89q.worldedit.CuboidClipboard.FlipDirection;
+import com.sk89q.worldedit.CuboidClipboard.MirrorDirection;
 
 import static org.junit.Assert.*;
 
@@ -32,7 +32,7 @@ import static org.junit.Assert.*;
  */
 public class BlockDataTest {
     @Test
-    public void testRotateFlip() {
+    public void testRotateMirror() {
         for (int type = 0; type < 256; ++type) {
             for (int data = 0; data < 16; ++data) {
                 final String message = type + "/" + data;
@@ -42,19 +42,19 @@ public class BlockDataTest {
                 //Test r-90(r90(x))==x
                 assertEquals(message, data, BlockData.rotate90Reverse(type, BlockData.rotate90(type, data)));
 
-                final int flipped = BlockData.flip(type, BlockData.flip(type, data, FlipDirection.WEST_EAST), FlipDirection.NORTH_SOUTH);
+                final int mirrored = BlockData.mirror(type, BlockData.mirror(type, data, MirrorDirection.WEST_EAST), MirrorDirection.NORTH_SOUTH);
 
-                //Test r90(r90(x))==flipNS(flipWE(x))
-                assertEquals(message, flipped, BlockData.rotate90(type, BlockData.rotate90(type, data)));
-                //Test r-90(r-90(x))==flipNS(flipWE(x))
-                assertEquals(message, flipped, BlockData.rotate90Reverse(type, BlockData.rotate90Reverse(type, data)));
+                //Test r90(r90(x))==mirrorNS(mirrorWE(x))
+                assertEquals(message, mirrored, BlockData.rotate90(type, BlockData.rotate90(type, data)));
+                //Test r-90(r-90(x))==mirrorNS(mirrorWE(x))
+                assertEquals(message, mirrored, BlockData.rotate90Reverse(type, BlockData.rotate90Reverse(type, data)));
 
-                //Test flipNS(flipNS(x))==x
-                assertEquals(message, data, BlockData.flip(type, BlockData.flip(type, data, FlipDirection.NORTH_SOUTH), FlipDirection.NORTH_SOUTH));
-                //Test flipWE(flipWE(x))==x
-                assertEquals(message, data, BlockData.flip(type, BlockData.flip(type, data, FlipDirection.WEST_EAST), FlipDirection.WEST_EAST));
-                //Test flipUD(flipUD(x))==x
-                assertEquals(message, data, BlockData.flip(type, BlockData.flip(type, data, FlipDirection.UP_DOWN), FlipDirection.UP_DOWN));
+                //Test mirrorNS(mirrorNS(x))==x
+                assertEquals(message, data, BlockData.mirror(type, BlockData.mirror(type, data, MirrorDirection.NORTH_SOUTH), MirrorDirection.NORTH_SOUTH));
+                //Test mirrorWE(mirrorWE(x))==x
+                assertEquals(message, data, BlockData.mirror(type, BlockData.mirror(type, data, MirrorDirection.WEST_EAST), MirrorDirection.WEST_EAST));
+                //Test mirrorUD(mirrorUD(x))==x
+                assertEquals(message, data, BlockData.mirror(type, BlockData.mirror(type, data, MirrorDirection.UP_DOWN), MirrorDirection.UP_DOWN));
 
                 //Test r90(r90(r90(r90(x))))==x
                 assertEquals(message, data, BlockData.rotate90(type, BlockData.rotate90(type, BlockData.rotate90(type, BlockData.rotate90(type, data)))));
